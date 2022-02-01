@@ -16,7 +16,7 @@ public class Main {
         });
         thread.start();
 
-        HelloApplication.main(args);
+        StartApplication.main(args);
     }
 
     public static void listenerCallback(String key) {

@@ -6,66 +6,62 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.macroproject.controllers.MainController">
-   <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#startMacro" text="Run" />
-                  <MenuItem mnemonicParsing="false" onAction="#stopMacro" text="Stop" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <HBox VBox.vgrow="NEVER">
-         <children>
-            <HBox>
-               <children>
-                  <Button fx:id="addCommandButton" minWidth="25.0" mnemonicParsing="false" onAction="#openCommandList" text="+">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="removeCommandButton" disable="true" minWidth="25.0" mnemonicParsing="false" onAction="#removeCommand" text="-">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#openVariableList" text="Variables">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#startMacro" text="Run">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#stopMacro" text="Stop">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-         <VBox.margin>
+    <MenuBar>
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#startMacro" text="Run" />
+            <MenuItem mnemonicParsing="false" onAction="#stopMacro" text="Stop" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem mnemonicParsing="false" text="Delete" />
+        </Menu>
+    </MenuBar>
+    <HBox VBox.vgrow="NEVER">
+        <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </VBox.margin>
-      </HBox>
-      <ListView fx:id="cmdListView" editable="true" prefHeight="86.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
-   </children>
+        </VBox.margin>
+        <HBox>
+            <Button fx:id="addCommandButton" minWidth="25.0" mnemonicParsing="false" onAction="#openCommandList" text="+">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0" />
+                </HBox.margin>
+            </Button>
+            <Button fx:id="removeCommandButton" disable="true" minWidth="25.0" mnemonicParsing="false" onAction="#removeCommand" text="-">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0" />
+                </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#openVariableList" text="Variables">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+        <HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+            <Button mnemonicParsing="false" onAction="#startMacro" text="Run">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0" />
+                </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#stopMacro" text="Stop">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </HBox>
+    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <Tab text="Untitled Tab 1">
+            <Pane>
+                <ListView fx:id="cmdListView" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10000.0" prefWidth="10000.0" />
+            </Pane>
+        </Tab>
+        <Tab closable="false" text="+" />
+    </TabPane>
 </VBox>

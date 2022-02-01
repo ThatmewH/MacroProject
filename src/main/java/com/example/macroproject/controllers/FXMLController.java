@@ -1,6 +1,6 @@
 package com.example.macroproject.controllers;
 
-import com.example.macroproject.HelloApplication;
+import com.example.macroproject.StartApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,7 +12,7 @@ public class FXMLController {
         try {
             Object[] returnObjects = new Object[2];
 
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(fxmlFile));
+            FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource(fxmlFile));
             Stage stage = new Stage();
             stage.setTitle(name);
             Scene scene = new Scene(fxmlLoader.load(), width, height);
