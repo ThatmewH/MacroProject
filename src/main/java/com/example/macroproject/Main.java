@@ -11,5 +11,7 @@ public class Main {
         GlobalScreen.addNativeMouseListener(l);
         GlobalScreen.addNativeKeyListener(l);
         StartApplication.main(args);
+        GlobalScreen.removeNativeKeyListener(l);
+        GlobalScreen.removeNativeMouseListener(l);
     }
 }
