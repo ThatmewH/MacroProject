@@ -1,6 +1,7 @@
 package com.example.macroproject;
 
 import com.example.macroproject.commands.Command;
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.variables.IntegerVariable;
 import com.example.macroproject.variables.Variable;
 
@@ -43,5 +44,6 @@ public class MacroController {
     public static void init() {
         commandIndex = new IntegerVariable("commandIndex", 0);
         Variable.addNewVariable(commandIndex);
+        CommandFunction runFunction = new CommandFunction("runFunction");
     }
 }

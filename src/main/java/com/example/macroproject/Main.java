@@ -9,6 +9,18 @@ public class Main {
         GlobalScreen.registerNativeHook();
         Listener l = new Listener();
         GlobalScreen.addNativeMouseListener(l);
+        GlobalScreen.addNativeKeyListener(l);
+
+        Thread thread = new Thread(() -> {
+            Listener.waitForKey(() -> listenerCallback(Listener.listeningInput));
+        });
+        thread.start();
+
         HelloApplication.main(args);
+    }
+
+    public static void listenerCallback(String key) {
+        System.out.println(key);
+
     }
 }
