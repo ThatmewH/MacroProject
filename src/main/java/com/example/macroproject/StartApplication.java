@@ -15,7 +15,7 @@ public class StartApplication extends Application {
         CommandFunction.CreateMainFunction();
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 300);
-        stage.setTitle("Matthew's Macro");
+        stage.setTitle("OpenCV Macro");
         stage.setScene(scene);
         stage.show();
     }
