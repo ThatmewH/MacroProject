@@ -3,26 +3,15 @@ package com.example.macroproject.controllers;
 import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
-import com.example.macroproject.commands.click.ClickCommand;
 import com.example.macroproject.controllers.commands.CommandController;
-import com.example.macroproject.variables.BooleanVariable;
-import com.example.macroproject.variables.IntegerVariable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainController extends FXMLController {
     @FXML
