@@ -8,10 +8,12 @@ import java.util.ArrayList;
 
 public abstract class Command {
 
-    private int startDelay;
+    protected int startDelay;
+    protected CommandFunction function;
 
-    public Command(int startDelay) {
+    public Command(int startDelay, CommandFunction function) {
         this.startDelay = startDelay;
+        this.function = function;
     }
 
     public static ArrayList<RegisteredCommand> registeredCommands = new ArrayList<>() {

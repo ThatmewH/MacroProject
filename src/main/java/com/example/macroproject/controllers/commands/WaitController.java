@@ -2,6 +2,7 @@ package com.example.macroproject.controllers.commands;
 
 
 import com.example.macroproject.commands.Command;
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.time.WaitCommand;
 import com.example.macroproject.variables.IntegerVariable;
 import com.example.macroproject.variables.Variable;
@@ -24,7 +25,7 @@ public class WaitController extends CommandController {
             IntegerVariable waitTime = (IntegerVariable) Variable.checkVariableReference(inputWaitTime.getText(), Integer.class, true);
 
             try {
-                return new WaitCommand(0, waitTime);
+                return new WaitCommand(0, waitTime, CommandFunction.getMainFunction());
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 return null;

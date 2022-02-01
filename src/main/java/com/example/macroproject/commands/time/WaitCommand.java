@@ -1,6 +1,7 @@
 package com.example.macroproject.commands.time;
 
 import com.example.macroproject.commands.Command;
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.variables.IntegerVariable;
 
@@ -8,8 +9,8 @@ public class WaitCommand extends Command {
 
     protected IntegerVariable duration;
 
-    public WaitCommand(int startDelay, IntegerVariable waitTime) {
-        super(startDelay);
+    public WaitCommand(int startDelay, IntegerVariable waitTime, CommandFunction function) {
+        super(startDelay, function);
         duration = waitTime;
     }
 

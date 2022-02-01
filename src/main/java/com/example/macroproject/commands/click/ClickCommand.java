@@ -1,7 +1,7 @@
 package com.example.macroproject.commands.click;
 
-import com.example.macroproject.MacroController;
 import com.example.macroproject.commands.Command;
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.variables.BooleanVariable;
 import com.example.macroproject.variables.IntegerVariable;
@@ -34,9 +34,9 @@ public class ClickCommand extends Command {
     protected IntegerVariable posY;
     protected IntegerVariable clickLength;
 
-    public ClickCommand(int startDelay, IntegerVariable clickStartDelay, IntegerVariable cps , IntegerVariable posX, IntegerVariable posY
+    public ClickCommand(int startDelay, CommandFunction function, IntegerVariable clickStartDelay, IntegerVariable cps , IntegerVariable posX, IntegerVariable posY
             , IntegerVariable clickLength, IntegerVariable numClicks, BooleanVariable useCPS) {
-        super(startDelay);
+        super(startDelay, function);
 
         if (clickStartDelay == null || cps == null || posX == null || posY == null
                 || clickLength == null || numClicks == null || useCPS == null) {
@@ -64,7 +64,7 @@ public class ClickCommand extends Command {
 
         for (int x = 0; x < numClicks.getValue(); x++) {
             startTime = System.currentTimeMillis();
-            if (!MacroController.isRunning) {
+            if (!function.isRunning()) {
                 return;
             }
             moveMouse();

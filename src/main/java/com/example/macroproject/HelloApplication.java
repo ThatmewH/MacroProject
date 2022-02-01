@@ -1,5 +1,6 @@
 package com.example.macroproject;
 
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.variables.Variable;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Matthew's Macro");
         stage.setScene(scene);
         stage.show();
-        MacroController.init();
+        CommandFunction.CreateMainFunction();
     }
 
     public static void main(String[] args) {

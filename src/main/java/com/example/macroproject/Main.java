@@ -21,6 +21,5 @@ public class Main {
 
     public static void listenerCallback(String key) {
         System.out.println(key);
-
     }
 }

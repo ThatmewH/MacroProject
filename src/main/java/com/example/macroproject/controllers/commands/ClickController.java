@@ -1,6 +1,7 @@
 package com.example.macroproject.controllers.commands;
 
 import com.example.macroproject.commands.Command;
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.click.ClickCommand;
 import com.example.macroproject.variables.BooleanVariable;
 import com.example.macroproject.variables.IntegerVariable;
@@ -50,7 +51,7 @@ public class ClickController extends CommandController {
             IntegerVariable inputClickLengthVar = (IntegerVariable) Variable.checkVariableReference(inputClickLength.getText(), Integer.class, true);
 
             try {
-                return new ClickCommand(0, inputCpsDelayVar, inputCpsDelayVar, inputPosXVar, inputPosYVar
+                return new ClickCommand(0, CommandFunction.getMainFunction(), inputCpsDelayVar, inputCpsDelayVar, inputPosXVar, inputPosYVar
                         , inputClickLengthVar, inputClickAmountVar, inputCpsIsDisabledVar);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();

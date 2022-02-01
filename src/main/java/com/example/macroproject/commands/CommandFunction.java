@@ -1,7 +1,7 @@
 package com.example.macroproject.commands;
 
-import com.example.macroproject.MacroController;
 import com.example.macroproject.variables.IntegerVariable;
+import com.example.macroproject.variables.Variable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,12 @@ public class CommandFunction {
     protected String name;
     protected boolean isRunning = false;
     protected IntegerVariable commandIndex;
-    protected ArrayList<Command> functionCommands = new ArrayList<>();
+    protected List<Command> functionCommands = new ArrayList<>();
 
     public CommandFunction(String name) {
         this.name = name;
-        commandIndex = new IntegerVariable(name + "CommandIndex", 0);
+        commandIndex = new IntegerVariable("commandIndex" + name, 0);
+        Variable.addNewVariable(commandIndex);
         CommandFunction.addFunction(this);
     }
 
@@ -47,13 +48,17 @@ public class CommandFunction {
         }
     }
 
+    public void setFunctionCommands(List<Command> newFunctionCommands) {
+        this.functionCommands = newFunctionCommands;
+    }
+
     public void stopMacro() {
         isRunning = false;
         commandIndex.setValue(0);
     }
 
     public static void addFunction(CommandFunction function) {
-        if (getFunction(function.name) != null) {
+        if (getFunction(function.name) == null) {
             functions.add(function);
         } else {
             throw new IllegalArgumentException("Function Already Exists");
@@ -67,5 +72,17 @@ public class CommandFunction {
             }
         }
         return null;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public static CommandFunction getMainFunction() {
+        return getFunction("MainFunction");
+    }
+
+    public static void CreateMainFunction() {
+        CommandFunction mainFunction = new CommandFunction("MainFunction");
     }
 }

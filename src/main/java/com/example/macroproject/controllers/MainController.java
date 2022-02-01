@@ -1,7 +1,7 @@
 package com.example.macroproject.controllers;
 
-import com.example.macroproject.MacroController;
 import com.example.macroproject.commands.Command;
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.controllers.commands.CommandController;
 import javafx.beans.value.ChangeListener;
@@ -27,12 +27,7 @@ public class MainController extends FXMLController {
     @FXML
     public void initialize() {
         cmdListView.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Command>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Command> observableValue, Command command, Command t1) {
-                        enableRemoveCommandButton();
-                    }
-                }
+                (observableValue, command, t1) -> enableRemoveCommandButton()
         );
     }
 
@@ -46,12 +41,7 @@ public class MainController extends FXMLController {
         CommandListController controller = fxmlLaoder.getController();
         controller.initData(this);
 
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                enableAddCommandButton();
-            }
-        });
+        stage.setOnHiding(windowEvent -> enableAddCommandButton());
 
         stage.show();
         disableAddCommandButton();
@@ -67,12 +57,7 @@ public class MainController extends FXMLController {
         VariableListController controller = fxmlLaoder.getController();
         controller.initData(this);
 
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                enableAddCommandButton();
-            }
-        });
+        stage.setOnHiding(windowEvent -> enableAddCommandButton());
         stage.show();
     }
 
@@ -100,14 +85,14 @@ public class MainController extends FXMLController {
 
     @FXML
     protected void startMacro() {
-        MacroController.start(
-            getCommands()
-        );
+        CommandFunction mainFunction = CommandFunction.getMainFunction();
+        mainFunction.setFunctionCommands(getCommands());
+        mainFunction.start();
     }
 
     @FXML
     protected void stopMacro() {
-        MacroController.stopMacro();
+        CommandFunction.getMainFunction().stopMacro();
     }
 
     protected List<Command> getCommands() {
