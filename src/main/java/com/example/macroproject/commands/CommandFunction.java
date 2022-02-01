@@ -25,6 +25,10 @@ public class CommandFunction {
         functionCommands.add(command);
     }
 
+    public void removeCommand(int index) {
+        functionCommands.remove(index);
+    }
+
     private void run() {
         try {
             Thread.sleep(1000);
@@ -59,6 +63,10 @@ public class CommandFunction {
 
     public String getName() {
         return name;
+    }
+
+    public List<Command> getFunctionCommands() {
+        return functionCommands;
     }
 
     public static void addFunction(CommandFunction function) {

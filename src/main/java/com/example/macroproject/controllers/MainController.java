@@ -3,7 +3,10 @@ package com.example.macroproject.controllers;
 import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
+import com.example.macroproject.commands.click.ClickCommand;
 import com.example.macroproject.controllers.commands.CommandController;
+import com.example.macroproject.variables.BooleanVariable;
+import com.example.macroproject.variables.IntegerVariable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -13,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -20,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainController extends FXMLController {
-    @FXML
-    private ListView<Command> cmdListView;
     @FXML
     private Button removeCommandButton;
     @FXML
@@ -31,32 +34,44 @@ public class MainController extends FXMLController {
 
     @FXML
     public void initialize() {
-        cmdListView.getSelectionModel().selectedItemProperty().addListener(
-                (observableValue, command, t1) -> enableRemoveCommandButton()
-        );
         refreshFunctions();
     }
 
     private void removeAllFunctionTabs() {
         int amountOfTabs = functionTabPane.getTabs().stream().toList().size();
-        for (int tabIndex = 0; tabIndex < amountOfTabs - 1; tabIndex++) {
+        for (int tabIndex = 1; tabIndex < amountOfTabs; tabIndex++) {
             functionTabPane.getTabs().remove(tabIndex);
         }
     }
 
     private void addCommandFunctionTab(CommandFunction commandFunction) {
-        Tab functionTab = new Tab(commandFunction.getName());
+        ListView<Command> listView = new ListView<>();
+        listView.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, command, t1) -> enableRemoveCommandButton()
+        );
+
+        Tab functionTab = new Tab(commandFunction.getName(), listView);
+        refreshTabCommands(functionTab);
         functionTabPane.getTabs().add(functionTab);
+    }
+
+    private void refreshTabCommands(Tab tab) {
+        ListView<Command> listView = (ListView<Command>) tab.getContent();
+        listView.getItems().removeAll(listView.getItems());
+        for (Command command : CommandFunction.getFunction(tab.getText()).getFunctionCommands()) {
+            listView.getItems().add(command);
+        }
     }
 
     @FXML
     public void refreshFunctions() {
         removeAllFunctionTabs();
+
         for (CommandFunction commandFunction : CommandFunction.getAllFunctions()) {
-            System.out.println(commandFunction);
-            System.out.println("commandFunction");
             addCommandFunctionTab(commandFunction);
         }
+        disableRemoveCommandButton();
+        functionTabPane.getSelectionModel().select(1);
     }
 
     @FXML
@@ -89,14 +104,31 @@ public class MainController extends FXMLController {
         stage.show();
     }
 
+    private Tab getSelectedTab() {
+        return functionTabPane.getSelectionModel().getSelectedItem();
+    }
+
+    private ListView<Command> getSelectedListView() {
+        return (ListView<Command>) getSelectedTab().getContent();
+    }
+
+    private CommandFunction getSelectedCommandFunction() {
+        return CommandFunction.getFunction(getSelectedTab().getText());
+    }
+
     public void addCommand(Command command) {
-        cmdListView.getItems().add(command);
+        getSelectedCommandFunction().addCommand(command);
+        getSelectedListView().getItems().add(command);
+        refreshTabCommands(getSelectedTab());
     }
 
     @FXML
     protected void removeCommand() {
-        cmdListView.getItems().remove(cmdListView.getSelectionModel().getSelectedIndex());
-        if (cmdListView.getItems().size() == 0) {
+        int index = getSelectedListView().getSelectionModel().getSelectedIndex();
+        getSelectedCommandFunction().removeCommand(index);
+        getSelectedListView().getItems().remove(index);
+
+        if (getSelectedListView().getItems().size() == 0) {
             disableRemoveCommandButton();
         }
     }
@@ -113,18 +145,12 @@ public class MainController extends FXMLController {
 
     @FXML
     protected void startMacro() {
-        CommandFunction mainFunction = CommandFunction.getMainFunction();
-        mainFunction.setFunctionCommands(getCommands());
-        mainFunction.start();
+        getSelectedCommandFunction().start();
     }
 
     @FXML
     protected void stopMacro() {
         CommandFunction.getMainFunction().stopMacro();
-    }
-
-    protected List<Command> getCommands() {
-        return cmdListView.getItems();
     }
 
     void openNewCommandStage(RegisteredCommand registeredCommand) {
