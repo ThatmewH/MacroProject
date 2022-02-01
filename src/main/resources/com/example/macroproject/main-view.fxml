@@ -56,7 +56,7 @@
             </Button>
         </HBox>
     </HBox>
-    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+    <TabPane fx:id="functionTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <Tab text="Untitled Tab 1">
             <Pane>
                 <ListView fx:id="cmdListView" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10000.0" prefWidth="10000.0" />

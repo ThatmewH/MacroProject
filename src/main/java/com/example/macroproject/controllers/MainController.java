@@ -11,9 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainController extends FXMLController {
@@ -23,12 +26,37 @@ public class MainController extends FXMLController {
     private Button removeCommandButton;
     @FXML
     private Button addCommandButton;
+    @FXML
+    private TabPane functionTabPane;
 
     @FXML
     public void initialize() {
         cmdListView.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, command, t1) -> enableRemoveCommandButton()
         );
+        refreshFunctions();
+    }
+
+    private void removeAllFunctionTabs() {
+        int amountOfTabs = functionTabPane.getTabs().stream().toList().size();
+        for (int tabIndex = 0; tabIndex < amountOfTabs - 1; tabIndex++) {
+            functionTabPane.getTabs().remove(tabIndex);
+        }
+    }
+
+    private void addCommandFunctionTab(CommandFunction commandFunction) {
+        Tab functionTab = new Tab(commandFunction.getName());
+        functionTabPane.getTabs().add(functionTab);
+    }
+
+    @FXML
+    public void refreshFunctions() {
+        removeAllFunctionTabs();
+        for (CommandFunction commandFunction : CommandFunction.getAllFunctions()) {
+            System.out.println(commandFunction);
+            System.out.println("commandFunction");
+            addCommandFunctionTab(commandFunction);
+        }
     }
 
     @FXML

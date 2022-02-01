@@ -12,12 +12,12 @@ public class StartApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        CommandFunction.CreateMainFunction();
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 300);
         stage.setTitle("Matthew's Macro");
         stage.setScene(scene);
         stage.show();
-        CommandFunction.CreateMainFunction();
     }
 
     public static void main(String[] args) {

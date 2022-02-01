@@ -12,7 +12,7 @@ public class CommandFunction {
     protected String name;
     protected boolean isRunning = false;
     protected IntegerVariable commandIndex;
-    protected List<Command> functionCommands = new ArrayList<>();
+    protected static List<Command> functionCommands = new ArrayList<>();
 
     public CommandFunction(String name) {
         this.name = name;
@@ -57,6 +57,10 @@ public class CommandFunction {
         commandIndex.setValue(0);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static void addFunction(CommandFunction function) {
         if (getFunction(function.name) == null) {
             functions.add(function);
@@ -84,5 +88,9 @@ public class CommandFunction {
 
     public static void CreateMainFunction() {
         CommandFunction mainFunction = new CommandFunction("MainFunction");
+    }
+
+    public static List<CommandFunction> getAllFunctions() {
+        return functions;
     }
 }
