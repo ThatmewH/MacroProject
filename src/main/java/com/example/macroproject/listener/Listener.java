@@ -16,11 +16,23 @@ public class Listener implements NativeMouseInputListener, NativeKeyListener {
         listeningInput = NativeKeyEvent.getKeyText(nativeEvent.getKeyCode());
     }
 
-    public static void waitForKey(Runnable callback) {
+    private static void waitForKey(Runnable callback) {
         while (listeningInput == null) {
             Thread.onSpinWait();
         }
         callback.run();
+    }
+
+    // Example use:
+    //
+    //    Listener.getNextKey(() -> listenerCallback(Listener.listeningInput));
+    //
+    //    public static void listenerCallback(String key) {
+    //        System.out.println(key);
+    //    }
+    public static void getNextKey(Runnable callback) {
+        Thread thread = new Thread(() -> Listener.waitForKey(callback));
+        thread.start();
     }
 
 }

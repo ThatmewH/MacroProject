@@ -90,17 +90,17 @@ public class VariableListController extends FXMLController {
         variableList.getItems().removeAll(variableList.getItems());
     }
 
+    private void onVariableStageClose() {
+        refreshList();
+        mainController.refreshTabCommands(mainController.getSelectedTab());
+    }
+
     @FXML
     protected void openNewVariableStage() {
         Object[] stageAndLoader = openNewStage("variable-edit.fxml", "Edit Variable", 250, 150);
         Stage stage = (Stage) stageAndLoader[0];
         FXMLLoader loader = (FXMLLoader) stageAndLoader[1];
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                refreshList();
-            }
-        });
+        stage.setOnHiding(windowEvent -> onVariableStageClose());
         stage.show();
     }
 
@@ -113,7 +113,7 @@ public class VariableListController extends FXMLController {
             stage.setOnHiding(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
-                    refreshList();
+                    onVariableStageClose();
                 }
             });
 

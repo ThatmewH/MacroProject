@@ -55,7 +55,7 @@ public class MainController extends FXMLController {
         functionTabPane.getTabs().add(functionTab);
     }
 
-    private void refreshTabCommands(Tab tab) {
+    public void refreshTabCommands(Tab tab) {
         ListView<Command> listView = (ListView<Command>) tab.getContent();
         listView.getItems().removeAll(listView.getItems());
         for (Command command : CommandFunction.getFunction(tab.getText()).getFunctionCommands()) {
@@ -104,15 +104,15 @@ public class MainController extends FXMLController {
         stage.show();
     }
 
-    private Tab getSelectedTab() {
+    public Tab getSelectedTab() {
         return functionTabPane.getSelectionModel().getSelectedItem();
     }
 
-    private ListView<Command> getSelectedListView() {
+    public ListView<Command> getSelectedListView() {
         return (ListView<Command>) getSelectedTab().getContent();
     }
 
-    private CommandFunction getSelectedCommandFunction() {
+    public CommandFunction getSelectedCommandFunction() {
         return CommandFunction.getFunction(getSelectedTab().getText());
     }
 
@@ -145,7 +145,9 @@ public class MainController extends FXMLController {
 
     @FXML
     protected void startMacro() {
-        getSelectedCommandFunction().start();
+        if (functionTabPane.getSelectionModel().getSelectedIndex() > 0) {
+            getSelectedCommandFunction().start();
+        }
     }
 
     @FXML
