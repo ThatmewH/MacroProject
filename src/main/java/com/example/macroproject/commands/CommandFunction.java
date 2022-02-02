@@ -26,6 +26,7 @@ public class CommandFunction {
     }
 
     public void removeCommand(int index) {
+        functionCommands.get(index).cleanSelfToBeRemoved();
         functionCommands.remove(index);
     }
 
@@ -106,6 +107,9 @@ public class CommandFunction {
         CommandFunction function = getFunction(functionName);
         functions.remove(function);
         Variable.deleteVariable(function.commandIndex.name);
+        for (int i = 0; i < function.getFunctionCommands().size(); i++) {
+            function.removeCommand(i);
+        }
 
         function.commandIndex = null;
         function.functionCommands = null;

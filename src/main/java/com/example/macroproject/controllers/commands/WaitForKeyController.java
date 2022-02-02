@@ -2,6 +2,7 @@ package com.example.macroproject.controllers.commands;
 
 import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.listener.WaitForKey;
+import com.example.macroproject.listener.KeyListener;
 import com.example.macroproject.listener.Listener;
 import com.example.macroproject.variables.StringVariable;
 import com.example.macroproject.variables.Variable;
@@ -11,7 +12,7 @@ import javafx.scene.control.Button;
 
 public class WaitForKeyController extends CommandController {
 
-    Listener listener = new Listener();
+    KeyListener listener = new KeyListener(this::fireKeyListener, null);
     @FXML
     Button keyButton;
 
@@ -22,20 +23,23 @@ public class WaitForKeyController extends CommandController {
 
     @FXML
     protected void onKeyButtonClick() {
-        setKeyButtonText("<Press Any Key>");
-
-        listener.getNextKey(() -> setKeyButtonText(listener.listeningInput), null);
+        setKeyButtonText("<Press A Key>");
+        listener.startListening();
     }
 
     private void setKeyButtonText(String label) {
         Platform.runLater(() -> keyButton.setText(label));
+    }
 
+    private void fireKeyListener() {
+        setKeyButtonText(listener.getInputKey());
+        listener.stopListening();
     }
 
     @Override
     protected Command getInputs() {
         try {
-                StringVariable key = (StringVariable) Variable.checkVariableReference(keyButton.getText(), String.class, true);
+            StringVariable key = (StringVariable) Variable.checkVariableReference(keyButton.getText(), String.class, true);
             try {
                 return new WaitForKey(0, currentCommandFunction, key);
             } catch (IllegalArgumentException e) {
@@ -51,6 +55,6 @@ public class WaitForKeyController extends CommandController {
     @Override
     protected void closeWindow() {
         super.closeWindow();
-        listener.stopListening();
+        listener.removeSelf();
     }
 }

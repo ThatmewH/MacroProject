@@ -12,11 +12,6 @@ public abstract class Command {
     protected int startDelay;
     protected CommandFunction function;
 
-    public Command(int startDelay, CommandFunction function) {
-        this.startDelay = startDelay;
-        this.function = function;
-    }
-
     public static ArrayList<RegisteredCommand> registeredCommands = new ArrayList<>() {
         {
             add(ClickCommand.registerCommand());
@@ -24,6 +19,15 @@ public abstract class Command {
             add(WaitForKey.registerCommand());
         }
     };
+
+    public Command(int startDelay, CommandFunction function) {
+        if (function == null) {
+            throw new IllegalArgumentException();
+        }
+
+        this.startDelay = startDelay;
+        this.function = function;
+    }
 
     abstract public void run();
 
@@ -39,6 +43,10 @@ public abstract class Command {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void cleanSelfToBeRemoved() {
 
     }
 
