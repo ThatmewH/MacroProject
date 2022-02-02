@@ -25,7 +25,7 @@ public class WaitController extends CommandController {
             IntegerVariable waitTime = (IntegerVariable) Variable.checkVariableReference(inputWaitTime.getText(), Integer.class, true);
 
             try {
-                return new WaitCommand(0, waitTime, CommandFunction.getMainFunction());
+                return new WaitCommand(0, waitTime, currentCommandFunction);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 return null;

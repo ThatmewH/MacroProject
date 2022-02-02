@@ -38,6 +38,8 @@ public class MainController extends FXMLController {
                 if (t1 == newFunctionTab) {
                     openNewFunctionStage();
                 }
+                disableRemoveCommandButton();
+                enableAddCommandButton();
             }
         });
     }
@@ -174,7 +176,7 @@ public class MainController extends FXMLController {
             stage.setWidth(controller.getStageWidth());
             stage.setHeight(controller.getStageHeight());
 
-            controller.initData(this, stage.getScene());
+            controller.initData(this, stage.getScene(), getSelectedCommandFunction());
 
             stage.show();
         }

@@ -1,6 +1,7 @@
 package com.example.macroproject.controllers.commands;
 
 import com.example.macroproject.commands.Command;
+import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.controllers.FXMLController;
 import com.example.macroproject.controllers.MainController;
 
@@ -11,6 +12,7 @@ public abstract class CommandController extends FXMLController {
     MainController mainController;
     Scene scene;
 
+    protected CommandFunction currentCommandFunction;
     protected int stageWidth;
     protected int stageHeight;
 
@@ -21,9 +23,10 @@ public abstract class CommandController extends FXMLController {
         scene.getWindow().hide();
     }
 
-    public void initData(MainController mainController, Scene scene) {
+    public void initData(MainController mainController, Scene scene, CommandFunction currentCommandFunction) {
         this.mainController = mainController;
         this.scene = scene;
+        this.currentCommandFunction = currentCommandFunction;
     }
 
     public int getStageHeight() {
