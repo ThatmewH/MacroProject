@@ -22,7 +22,6 @@ public class Listener implements NativeMouseInputListener, NativeKeyListener {
     }
 
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
-
         for (KeyListener keyListener : keyListeners) {
             keyListener.getKeyEvent(nativeEvent);
         }
