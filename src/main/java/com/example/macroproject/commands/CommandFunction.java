@@ -90,10 +90,6 @@ public class CommandFunction {
         return isRunning;
     }
 
-    public static CommandFunction getMainFunction() {
-        return getFunction("MainFunction");
-    }
-
     public static void CreateMainFunction() {
         createFunction("MainFunction");
     }

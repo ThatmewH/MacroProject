@@ -4,6 +4,8 @@ import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.controllers.commands.CommandController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,8 +33,9 @@ public class MainController extends FXMLController {
     public void initialize() {
         refreshFunctions();
         functionTabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, tab, t1) -> {
-            if (t1 == newFunctionTab) {
+            if (t1 == newFunctionTab ) {
                 openNewFunctionStage();
+                functionTabPane.getSelectionModel().select(tab);
             }
             disableRemoveCommandButton();
             enableAddCommandButton();
@@ -85,13 +88,15 @@ public class MainController extends FXMLController {
 
     @FXML
     public void refreshFunctions() {
+        newFunctionTab.setDisable(true);
         removeAllFunctionTabs();
 
         for (CommandFunction commandFunction : CommandFunction.getAllFunctions()) {
             addCommandFunctionTab(commandFunction);
         }
         disableRemoveCommandButton();
-        functionTabPane.getSelectionModel().select(1);
+        newFunctionTab.setDisable(false);
+        functionTabPane.getSelectionModel().select(functionTabPane.getTabs().size() - 1);
     }
 
     @FXML
