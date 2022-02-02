@@ -95,10 +95,14 @@ public class CommandFunction {
     }
 
     public static void CreateMainFunction() {
-        CommandFunction mainFunction = new CommandFunction("MainFunction");
+        createFunction("MainFunction");
     }
 
     public static List<CommandFunction> getAllFunctions() {
         return functions;
+    }
+
+    public static void createFunction(String functionName) {
+        CommandFunction newCommandFunction = new CommandFunction(functionName);
     }
 }

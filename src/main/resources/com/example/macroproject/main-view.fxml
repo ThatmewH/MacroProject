@@ -15,11 +15,14 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.macroproject.controllers.MainController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#startMacro" text="Run" />
-            <MenuItem mnemonicParsing="false" onAction="#stopMacro" text="Stop" />
+         <MenuItem mnemonicParsing="false" onAction="#stopMacro" text="Save" />
+         <MenuItem mnemonicParsing="false" onAction="#stopMacro" text="Open" />
+         <MenuItem mnemonicParsing="false" onAction="#stopMacro" text="New" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Delete" />
+            <MenuItem mnemonicParsing="false" onAction="#startMacro" text="Run" />
+            <MenuItem mnemonicParsing="false" onAction="#stopMacro" text="Stop" />
+            <MenuItem mnemonicParsing="false" text="Listeners" />
         </Menu>
     </MenuBar>
     <HBox VBox.vgrow="NEVER">
@@ -57,7 +60,7 @@
         </HBox>
     </HBox>
     <TabPane fx:id="functionTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-        <Tab closable="false" text="+" />
+        <Tab closable="false" onSelectionChanged="#addNewFunction" text="+" />
         <Tab text="Untitled Tab 1">
             <Pane>
                 <ListView fx:id="cmdListView" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10000.0" prefWidth="10000.0" />

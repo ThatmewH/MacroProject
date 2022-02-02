@@ -12,6 +12,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
+import java.util.ListIterator;
+
 
 public class MainController extends FXMLController {
     @FXML
@@ -27,9 +29,9 @@ public class MainController extends FXMLController {
     }
 
     private void removeAllFunctionTabs() {
-        int amountOfTabs = functionTabPane.getTabs().stream().toList().size();
-        for (int tabIndex = 1; tabIndex < amountOfTabs; tabIndex++) {
-            functionTabPane.getTabs().remove(tabIndex);
+        for (ListIterator<Tab> listIterator = functionTabPane.getTabs().listIterator(1); listIterator.hasNext();) {
+            listIterator.next();
+            listIterator.remove();
         }
     }
 
@@ -167,5 +169,17 @@ public class MainController extends FXMLController {
 
     private void enableAddCommandButton() {
         addCommandButton.setDisable(false);
+    }
+
+    @FXML
+    protected void addNewFunction() {
+        try {
+
+            CommandFunction.createFunction("test");
+            CommandFunction.createFunction("testt");
+            refreshFunctions();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Function already exists");
+        }
     }
 }
