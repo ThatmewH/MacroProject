@@ -4,8 +4,6 @@ import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.controllers.commands.CommandController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -55,8 +53,26 @@ public class MainController extends FXMLController {
         );
 
         Tab functionTab = new Tab(commandFunction.getName(), listView);
+
         refreshTabCommands(functionTab);
         functionTabPane.getTabs().add(functionTab);
+
+        if (commandFunction.getName().equals("MainFunction")) {
+            functionTab.setClosable(false);
+        } else {
+            functionTab.setOnClosed(new EventHandler<Event>() {
+                @Override
+                public void handle(Event event) {
+                    event.consume();
+
+                    removeFunction(((Tab) event.getSource()).getText());
+                }
+            });
+        }
+    }
+
+    protected void removeFunction(String functionName) {
+        CommandFunction.removeFunction(functionName);
     }
 
     public void refreshTabCommands(Tab tab) {

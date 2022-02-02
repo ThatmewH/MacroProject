@@ -57,7 +57,7 @@
             </Button>
         </HBox>
     </HBox>
-    <TabPane fx:id="functionTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+    <TabPane fx:id="functionTabPane" rotateGraphic="true" side="BOTTOM" VBox.vgrow="ALWAYS">
         <Tab fx:id="newFunctionTab" closable="false" text="+" />
     </TabPane>
 </VBox>

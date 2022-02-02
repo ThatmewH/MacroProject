@@ -105,4 +105,14 @@ public class CommandFunction {
     public static void createFunction(String functionName) {
         CommandFunction newCommandFunction = new CommandFunction(functionName);
     }
+
+    public static void removeFunction(String functionName) {
+        CommandFunction function = getFunction(functionName);
+        functions.remove(function);
+        Variable.deleteVariable(function.commandIndex.name);
+
+        function.commandIndex = null;
+        function.functionCommands = null;
+        function = null;
+    }
 }
