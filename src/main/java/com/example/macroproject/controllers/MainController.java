@@ -32,15 +32,12 @@ public class MainController extends FXMLController {
     @FXML
     public void initialize() {
         refreshFunctions();
-        functionTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-            @Override
-            public void changed(ObservableValue<? extends Tab> observableValue, Tab tab, Tab t1) {
-                if (t1 == newFunctionTab) {
-                    openNewFunctionStage();
-                }
-                disableRemoveCommandButton();
-                enableAddCommandButton();
+        functionTabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, tab, t1) -> {
+            if (t1 == newFunctionTab) {
+                openNewFunctionStage();
             }
+            disableRemoveCommandButton();
+            enableAddCommandButton();
         });
     }
 
@@ -95,7 +92,6 @@ public class MainController extends FXMLController {
 
         stage.show();
         disableAddCommandButton();
-        System.out.println(getSelectedCommandFunction().getFunctionCommands());
     }
 
     @FXML
@@ -154,7 +150,6 @@ public class MainController extends FXMLController {
     @FXML
     protected void startMacro() {
         CommandFunction commandFunction = getSelectedCommandFunction();
-        System.out.println(commandFunction);
         if (commandFunction != null) {
             commandFunction.start();
         }
@@ -162,7 +157,7 @@ public class MainController extends FXMLController {
 
     @FXML
     protected void stopMacro() {
-        CommandFunction.getMainFunction().stopMacro();
+        getSelectedCommandFunction().stopMacro();
     }
 
     void openNewCommandStage(RegisteredCommand registeredCommand) {

@@ -41,7 +41,7 @@ public class CommandFunction {
             functionCommands.get(commandIndex.getValue()).start();
             commandIndex.addValue(1);
         }
-        System.out.println("peplep");
+
         stopMacro();
     }
 

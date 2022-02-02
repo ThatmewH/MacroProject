@@ -41,8 +41,7 @@ public class EditVariableController extends FXMLController {
     @FXML
     protected void submitVariable() {
         Variable variable = Variable.checkVariableReference(valueTextField.getText(), comboBox.getValue(), false);
-        System.out.println(comboBox.getValue());
-        System.out.println(valueTextField.getText());
+
         if (variable != null) {
             variable.name = nameTextField.getText();
             if (!isEditing) {
