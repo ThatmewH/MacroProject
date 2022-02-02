@@ -9,7 +9,7 @@ public class Listener implements NativeMouseInputListener, NativeKeyListener {
     public static volatile String listeningInput = null;
 
     public void nativeMouseClicked(NativeMouseEvent e) {
-        System.out.println("Mouse Clicked: " + e.getX() + " " + e.getY());
+//        System.out.println("Mouse Clicked: " + e.getX() + " " + e.getY());
     }
 
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {

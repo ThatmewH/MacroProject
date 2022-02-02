@@ -4,6 +4,10 @@ import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.controllers.commands.CommandController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -22,10 +26,20 @@ public class MainController extends FXMLController {
     private Button addCommandButton;
     @FXML
     private TabPane functionTabPane;
+    @FXML
+    private Tab newFunctionTab;
 
     @FXML
     public void initialize() {
         refreshFunctions();
+        functionTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observableValue, Tab tab, Tab t1) {
+                if (t1 == newFunctionTab) {
+                    openNewFunctionStage();
+                }
+            }
+        });
     }
 
     private void removeAllFunctionTabs() {
@@ -79,6 +93,7 @@ public class MainController extends FXMLController {
 
         stage.show();
         disableAddCommandButton();
+        System.out.println(getSelectedCommandFunction().getFunctionCommands());
     }
 
     @FXML
@@ -136,8 +151,10 @@ public class MainController extends FXMLController {
 
     @FXML
     protected void startMacro() {
-        if (functionTabPane.getSelectionModel().getSelectedIndex() > 0) {
-            getSelectedCommandFunction().start();
+        CommandFunction commandFunction = getSelectedCommandFunction();
+        System.out.println(commandFunction);
+        if (commandFunction != null) {
+            commandFunction.start();
         }
     }
 

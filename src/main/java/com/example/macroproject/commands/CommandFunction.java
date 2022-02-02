@@ -12,7 +12,7 @@ public class CommandFunction {
     protected String name;
     protected boolean isRunning = false;
     protected IntegerVariable commandIndex;
-    protected static List<Command> functionCommands = new ArrayList<>();
+    protected List<Command> functionCommands = new ArrayList<>();
 
     public CommandFunction(String name) {
         this.name = name;
@@ -35,13 +35,13 @@ public class CommandFunction {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         isRunning = true;
+
         while (commandIndex.getValue() < functionCommands.size() && isRunning) {
             functionCommands.get(commandIndex.getValue()).start();
             commandIndex.addValue(1);
         }
-
+        System.out.println("peplep");
         stopMacro();
     }
 
