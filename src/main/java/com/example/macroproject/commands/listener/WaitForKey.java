@@ -8,8 +8,9 @@ import com.example.macroproject.variables.BooleanVariable;
 import com.example.macroproject.variables.StringVariable;
 
 public class WaitForKey extends Command {
-    protected volatile BooleanVariable gotKey;
-    protected volatile StringVariable listenKey;
+    protected volatile BooleanVariable gotKey = new BooleanVariable("", false);
+    protected StringVariable listenKey;
+    protected Listener listener = new Listener();
 
     public WaitForKey(int startDelay, CommandFunction function, StringVariable listenKey) {
         super(startDelay, function);
@@ -18,11 +19,18 @@ public class WaitForKey extends Command {
 
     @Override
     public void run() {
-        Listener.getNextKey(this::listenerCallback, listenKey.getValue());
+        listener.getNextKey(this::listenerCallback, listenKey.getValue());
 
-        while (!gotKey.getValue()) {
+        while (!gotKey.getValue() && function.isRunning()) {
             Thread.onSpinWait();
+            if (!function.isRunning()) {
+                listener.stopListening();
+                return;
+            }
         }
+
+        gotKey.setValue(false);
+        listener.stopListening();
     }
 
     protected void listenerCallback() {
@@ -31,7 +39,7 @@ public class WaitForKey extends Command {
 
     @Override
     public String toString() {
-        return null;
+        return String.format("WaitForKey: %s", listenKey.getValue());
     }
 
     public static RegisteredCommand registerCommand() {

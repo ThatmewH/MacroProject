@@ -69,9 +69,9 @@ public class ClickCommand extends Command {
             }
             moveMouse();
 
-            properDelayTime = Math.max(delay - extraTime, 5);
-            bot.delay(properDelayTime);
+            properDelayTime = Math.max(delay - extraTime + 1, 1);
             click();
+            bot.delay(properDelayTime);
             endTime = System.currentTimeMillis();
             extraTime = (int) (endTime - startTime - properDelayTime);
         }

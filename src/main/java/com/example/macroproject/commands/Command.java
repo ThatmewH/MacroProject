@@ -34,7 +34,12 @@ public abstract class Command {
             e.printStackTrace();
         }
 
-        run();
+        try {
+            run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

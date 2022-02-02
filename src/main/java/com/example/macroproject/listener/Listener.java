@@ -8,23 +8,70 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseInputListener;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class Listener implements NativeMouseInputListener, NativeKeyListener {
-    public static volatile String listeningInput = null;
+    //TODO add subclass for key and mouse listeners
+    public volatile String listeningInput = "";
+
+    public static ArrayList<Listener> listeners = new ArrayList<>();
+
+    public volatile boolean isListening = false;
+
+    public Listener() {
+        listeners.add(this);
+    }
 
     public void nativeMouseClicked(NativeMouseEvent e) {
 
     }
 
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
-        listeningInput = NativeKeyEvent.getKeyText(nativeEvent.getKeyCode());
+        for (Listener listener : listeners) {
+            listener.getKeyEvent(nativeEvent);
+        }
     }
 
-    private static void waitForKey(Runnable callback, String key) {
-        while (!listeningInput.equals(key) || (key == null && listeningInput != null)) {
-            Thread.onSpinWait();
+    private void getKeyEvent(NativeKeyEvent nativeEvent) {
+        if (this.isListening) {
+            listeningInput = NativeKeyEvent.getKeyText(nativeEvent.getKeyCode()).toLowerCase(Locale.ROOT);
         }
-        callback.run();
+    }
+
+    public void stopListening() {
+        isListening = false;
+    }
+
+    private void waitForKey(Runnable callback, String key) {
+        isListening = true;
+
+        if (key == null) {
+            while (listeningInput.equals("")) {
+                Thread.onSpinWait();
+                if (!isListening) {
+                    return;
+                }
+            }
+        } else {
+            while (!listeningInput.equals(key)) {
+                Thread.onSpinWait();
+                if (!isListening) {
+                    return;
+                }
+            }
+        }
+
+        try {
+            callback.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        listeningInput = "";
+
+        isListening = false;
+
     }
 
     /**
@@ -35,9 +82,10 @@ public class Listener implements NativeMouseInputListener, NativeKeyListener {
      * @param key (String) - only runs the callback when this key string is detected. If null, then any key press will
      *            run the callback function
      */
-    public static void getNextKey(Runnable callback, String key) {
-        Thread thread = new Thread(() -> Listener.waitForKey(callback, key));
+    public void getNextKey(Runnable callback, String key) {
+        Thread thread = new Thread(() -> this.waitForKey(callback, key));
         thread.start();
+
     }
 
     public static int stringToKeyCode(String key) {

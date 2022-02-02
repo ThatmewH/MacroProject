@@ -10,7 +10,7 @@ public class CommandFunction {
     static ArrayList<CommandFunction> functions = new ArrayList<>();
 
     protected String name;
-    protected boolean isRunning = false;
+    protected volatile boolean isRunning = false;
     protected IntegerVariable commandIndex;
     protected List<Command> functionCommands = new ArrayList<>();
 
