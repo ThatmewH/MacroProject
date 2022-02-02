@@ -107,6 +107,7 @@ public class CommandFunction {
         CommandFunction function = getFunction(functionName);
         functions.remove(function);
         Variable.deleteVariable(function.commandIndex.name);
+
         for (int i = 0; i < function.getFunctionCommands().size(); i++) {
             function.removeCommand(i);
         }

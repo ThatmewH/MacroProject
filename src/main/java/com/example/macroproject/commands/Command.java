@@ -46,6 +46,10 @@ public abstract class Command {
 
     }
 
+    /**
+     * Removes any variables in this class that may be referenced somewhere else (Except for custom Variables)
+     * Usually will not need to be called
+     */
     public void cleanSelfToBeRemoved() {
 
     }
