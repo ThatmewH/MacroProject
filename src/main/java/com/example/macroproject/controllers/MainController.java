@@ -172,14 +172,19 @@ public class MainController extends FXMLController {
     }
 
     @FXML
-    protected void addNewFunction() {
-        try {
+    protected void openNewFunctionStage() {
+        Object[] stageAndLoader = openNewStage("new-function-view.fxml", "New Function", 200, 75);
+        Stage stage = (Stage) stageAndLoader[0];
+        FXMLLoader loader = (FXMLLoader) stageAndLoader[1];
 
-            CommandFunction.createFunction("test");
-            CommandFunction.createFunction("testt");
-            refreshFunctions();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Function already exists");
-        }
+        NewFunctionController controller = (NewFunctionController) loader.getController();
+        controller.initData(this);
+
+        stage.show();
+    }
+
+    public void addNewFunction(String newFunctionName) {
+        CommandFunction.createFunction(newFunctionName);
+        refreshFunctions();
     }
 }
