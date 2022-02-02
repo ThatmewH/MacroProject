@@ -13,10 +13,11 @@ module com.example.macroproject {
     requires jnativehook;
 
     opens com.example.macroproject to javafx.fxml;
-    exports com.example.macroproject;
+    opens com.example.macroproject.commands to javafx.fxml;
     opens com.example.macroproject.controllers to javafx.fxml;
     opens com.example.macroproject.controllers.commands to javafx.fxml;
+    opens com.example.macroproject.controllers.listeners to javafx.fxml;
+    exports com.example.macroproject;
     exports com.example.macroproject.commands;
-    opens com.example.macroproject.commands to javafx.fxml;
     exports com.example.macroproject.variables;
 }

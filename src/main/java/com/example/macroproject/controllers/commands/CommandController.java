@@ -39,9 +39,9 @@ public abstract class CommandController extends FXMLController {
 
     @FXML
     public void submitForm() {
-        Command clickCommand = getInputs();
-        if (clickCommand != null) {
-            mainController.addCommand(clickCommand);
+        Command command = getInputs();
+        if (command != null) {
+            mainController.addCommand(command);
             closeWindow();
         }
     }

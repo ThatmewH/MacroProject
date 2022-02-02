@@ -1,6 +1,7 @@
 package com.example.macroproject.commands;
 
 import com.example.macroproject.commands.click.ClickCommand;
+import com.example.macroproject.commands.listener.WaitForKey;
 import com.example.macroproject.commands.time.WaitCommand;
 
 import java.io.File;
@@ -20,6 +21,7 @@ public abstract class Command {
         {
             add(ClickCommand.registerCommand());
             add(WaitCommand.registerCommand());
+            add(WaitForKey.registerCommand());
         }
     };
 
