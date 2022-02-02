@@ -63,7 +63,7 @@
         <Tab fx:id="newFunctionTab" closable="false" text="+" />
         <Tab text="Untitled Tab 1">
             <Pane>
-                <ListView fx:id="cmdListView" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10000.0" prefWidth="10000.0" />
+                <ListView editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10000.0" prefWidth="10000.0" />
             </Pane>
         </Tab>
     </TabPane>
