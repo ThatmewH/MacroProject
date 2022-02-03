@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="225.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.macroproject.controllers.VariableListController">
+   <children>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <tabs>
+          <Tab text="Global Variables">
+               <content>
+                  <Pane>
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="201.0" prefWidth="369.0">
+                           <children>
+                              <TextField fx:id="searchVariable" promptText="Search..." VBox.vgrow="ALWAYS" />
+                              <HBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ListView fx:id="variableList" HBox.hgrow="NEVER" />
+                                    <VBox minWidth="120.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Button alignment="CENTER" centerShape="false" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openNewVariableStage" prefWidth="50.0" text="New">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                                <Button alignment="TOP_RIGHT" centerShape="false" mnemonicParsing="false" onAction="#deleteVariable" prefWidth="50.0" text="Delete" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets right="10.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Pane HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets left="5.0" />
+                                                   </padding>
+                                                </Pane>
+                                                <Button alignment="TOP_RIGHT" centerShape="false" mnemonicParsing="false" onAction="#openEditVariableStage" text="Edit">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                                <Pane HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets right="5.0" />
+                                                   </padding>
+                                                </Pane>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+          <Tab text="Listeners" />
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>

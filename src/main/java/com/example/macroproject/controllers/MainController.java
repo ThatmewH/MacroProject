@@ -117,7 +117,7 @@ public class MainController extends FXMLController {
 
     @FXML
     protected void openVariableList() {
-        Object[] stageAndLoader = openNewStage("variable-list-view.fxml", "Variables", 400, 150);
+        Object[] stageAndLoader = openNewStage("function-settings-view.fxml", "Variables", 400, 150);
         assert stageAndLoader != null;
 
         Stage stage = (Stage) stageAndLoader[0];
