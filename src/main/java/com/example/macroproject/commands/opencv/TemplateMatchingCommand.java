@@ -5,8 +5,8 @@ import com.example.macroproject.commands.CommandFunction;
 
 public class TemplateMatchingCommand extends Command {
 
-    public TemplateMatchingCommand(int startDelay, CommandFunction function) {
-        super(startDelay, function);
+    public TemplateMatchingCommand(CommandFunction function) {
+        super(function);
     }
 
     @Override

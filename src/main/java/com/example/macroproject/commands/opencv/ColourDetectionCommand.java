@@ -4,8 +4,8 @@ import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 
 public class ColourDetectionCommand extends Command {
-    public ColourDetectionCommand(int startDelay, CommandFunction function) {
-        super(startDelay, function);
+    public ColourDetectionCommand(CommandFunction function) {
+        super(function);
     }
 
     @Override

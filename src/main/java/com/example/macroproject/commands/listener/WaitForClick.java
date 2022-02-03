@@ -4,32 +4,35 @@ import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.listener.KeyInput;
+import com.example.macroproject.listener.MouseInput;
 import com.example.macroproject.variables.BooleanVariable;
+import com.example.macroproject.variables.IntegerVariable;
 import com.example.macroproject.variables.StringVariable;
 
-public class WaitForKey extends Command {
+public class WaitForClick extends Command {
     protected volatile BooleanVariable gotKey = new BooleanVariable("", false);
-    protected StringVariable listenKey;
-    protected KeyInput keyListener;
+    protected IntegerVariable listenMouseButton;
+    protected MouseInput mouseListener;
 
-    public WaitForKey(CommandFunction function, StringVariable listenKey) {
+    public WaitForClick(CommandFunction function, IntegerVariable listenKey, IntegerVariable outputMouseX
+            , IntegerVariable outputMouseY, IntegerVariable outputClickNum) {
         super(function);
 
-        if (listenKey == null) {
+        if (listenKey == null || outputMouseX == null || outputMouseY == null || outputClickNum == null) {
             throw new IllegalArgumentException();
         }
 
-        this.listenKey = listenKey;
-        this.keyListener = new KeyInput(this::listenerCallback, listenKey);
+        this.listenMouseButton = listenKey;
+        this.mouseListener = new MouseInput(this::listenerCallback, listenKey, outputMouseX, outputMouseY, outputClickNum);
     }
 
     @Override
     public void run() {
-        keyListener.startListening();
+        mouseListener.startListening();
         while (!gotKey.getValue() && function.isRunning()) {
             Thread.onSpinWait();
         }
-        keyListener.stopListening();
+        mouseListener.stopListening();
         gotKey.setValue(false);
     }
 
@@ -39,16 +42,16 @@ public class WaitForKey extends Command {
 
     @Override
     public String toString() {
-        return String.format("WaitForKey: %s", listenKey.getValue());
+        return String.format("WaitForKey: %s", listenMouseButton.getValue());
     }
 
     public static RegisteredCommand registerCommand() {
-        return new RegisteredCommand("WaitForKey", WaitForKey.class, "commands/waitforkey.fxml");
+        return new RegisteredCommand("WaitForMouseClick", WaitForClick.class, "commands/waitforclick.fxml");
     }
 
     @Override
     public void cleanSelfToBeRemoved() {
         super.cleanSelfToBeRemoved();
-        keyListener.removeSelf();
+        mouseListener.removeSelf();
     }
 }

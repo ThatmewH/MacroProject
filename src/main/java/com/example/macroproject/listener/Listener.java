@@ -6,33 +6,31 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import com.github.kwhat.jnativehook.mouse.NativeMouseEvent;
 import com.github.kwhat.jnativehook.mouse.NativeMouseInputListener;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Listener implements NativeMouseInputListener, NativeKeyListener {
     //TODO add subclass for key and mouse listeners
 
-    public static ArrayList<KeyListener> keyListeners = new ArrayList<>();
-    public static ArrayList<KeyListener> mouseListeners = new ArrayList<>();
+    public static ArrayList<Input> inputListeners = new ArrayList<>();
 
-    public void nativeMouseClicked(NativeMouseEvent e) {
-
-    }
-
-    public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
-        for (KeyListener keyListener : keyListeners) {
-            keyListener.getKeyEvent(nativeEvent);
+    public void nativeMousePressed(NativeMouseEvent nativeEvent) {
+        for (Input inputListener : inputListeners) {
+            inputListener.getInputEvent(nativeEvent);
         }
     }
 
-    public static void addKeyListener(KeyListener keyListener) {
-        keyListeners.add(keyListener);
+    public void nativeKeyReleased(NativeKeyEvent nativeEvent) {
+        for (Input inputListener : inputListeners) {
+            inputListener.getInputEvent(nativeEvent);
+        }
     }
 
-    public static void removeKeyListener(KeyListener keyListener) {
-        keyListeners.remove(keyListener);
+    public static void addKeyListener(Input inputListener) {
+        inputListeners.add(inputListener);
+    }
+
+    public static void removeKeyListener(Input keyListener) {
+        inputListeners.remove(keyListener);
     }
 
 }

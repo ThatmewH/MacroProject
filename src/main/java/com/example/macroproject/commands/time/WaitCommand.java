@@ -9,8 +9,8 @@ public class WaitCommand extends Command {
 
     protected IntegerVariable duration;
 
-    public WaitCommand(int startDelay, IntegerVariable waitTime, CommandFunction function) {
-        super(startDelay, function);
+    public WaitCommand(IntegerVariable waitTime, CommandFunction function) {
+        super(function);
         duration = waitTime;
     }
 

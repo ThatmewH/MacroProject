@@ -51,7 +51,7 @@ public class ClickController extends CommandController {
             IntegerVariable inputClickLengthVar = (IntegerVariable) Variable.checkVariableReference(inputClickLength.getText(), Integer.class, true);
 
             try {
-                return new ClickCommand(0, currentCommandFunction, inputCpsDelayVar, inputCpsDelayVar, inputPosXVar, inputPosYVar
+                return new ClickCommand(currentCommandFunction, inputCpsDelayVar, inputCpsDelayVar, inputPosXVar, inputPosYVar
                         , inputClickLengthVar, inputClickAmountVar, inputCpsIsDisabledVar);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();

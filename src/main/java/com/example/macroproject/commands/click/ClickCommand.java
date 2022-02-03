@@ -34,9 +34,9 @@ public class ClickCommand extends Command {
     protected IntegerVariable posY;
     protected IntegerVariable clickLength;
 
-    public ClickCommand(int startDelay, CommandFunction function, IntegerVariable clickStartDelay, IntegerVariable cps , IntegerVariable posX, IntegerVariable posY
+    public ClickCommand(CommandFunction function, IntegerVariable clickStartDelay, IntegerVariable cps , IntegerVariable posX, IntegerVariable posY
             , IntegerVariable clickLength, IntegerVariable numClicks, BooleanVariable useCPS) {
-        super(startDelay, function);
+        super(function);
 
         if (clickStartDelay == null || cps == null || posX == null || posY == null
                 || clickLength == null || numClicks == null || useCPS == null) {

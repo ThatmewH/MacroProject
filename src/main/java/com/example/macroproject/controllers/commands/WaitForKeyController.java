@@ -2,8 +2,7 @@ package com.example.macroproject.controllers.commands;
 
 import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.listener.WaitForKey;
-import com.example.macroproject.listener.KeyListener;
-import com.example.macroproject.listener.Listener;
+import com.example.macroproject.listener.KeyInput;
 import com.example.macroproject.variables.StringVariable;
 import com.example.macroproject.variables.Variable;
 import javafx.application.Platform;
@@ -12,7 +11,7 @@ import javafx.scene.control.Button;
 
 public class WaitForKeyController extends CommandController {
 
-    KeyListener listener = new KeyListener(this::fireKeyListener, null);
+    KeyInput listener = new KeyInput(this::fireKeyListener, null);
     @FXML
     Button keyButton;
 
@@ -32,7 +31,7 @@ public class WaitForKeyController extends CommandController {
     }
 
     private void fireKeyListener() {
-        setKeyButtonText(listener.getInputKey());
+        setKeyButtonText(listener.getInputValue());
         listener.stopListening();
     }
 
@@ -41,7 +40,7 @@ public class WaitForKeyController extends CommandController {
         try {
             StringVariable key = (StringVariable) Variable.checkVariableReference(keyButton.getText(), String.class, true);
             try {
-                return new WaitForKey(0, currentCommandFunction, key);
+                return new WaitForKey(currentCommandFunction, key);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 return null;
