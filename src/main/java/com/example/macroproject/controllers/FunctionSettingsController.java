@@ -1,10 +1,10 @@
 package com.example.macroproject.controllers;
 
-import com.example.macroproject.commands.Command;
-import com.example.macroproject.commands.RegisteredCommand;
+import com.example.macroproject.commands.CommandFunction;
+import com.example.macroproject.listener.KeyInput;
 import com.example.macroproject.variables.Variable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,17 +15,24 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.io.IOException;
 import java.util.List;
 
 
-public class VariableListController extends FXMLController {
+public class FunctionSettingsController extends FXMLController {
     MainController mainController;
+    CommandFunction commandFunction;
+
+    KeyInput startButtonListener = new KeyInput(this::startButtonCallback, null);
+    KeyInput stopButtonListener = new KeyInput(this::stopButtonCallback, null);
 
     @FXML
     TextField searchVariable;
     @FXML
     ListView<Variable> variableList;
+    @FXML
+    Button startButton;
+    @FXML
+    Button stopButton;
 
     @FXML
     public void initialize() {
@@ -51,9 +58,55 @@ public class VariableListController extends FXMLController {
         updateSearchResults(null);
     }
 
-    void initData(MainController mainController) {
+    void initData(MainController mainController, CommandFunction commandFunction) {
         this.mainController = mainController;
+        this.commandFunction = commandFunction;
         addAllVariables();
+        initCommandFunctionData();
+    }
+
+    void initCommandFunctionData() {
+        String runKey = commandFunction.getStartListener().getListeningKey().getValue();
+        String stopKey = commandFunction.getStopListener().getListeningKey().getValue();
+
+        if (runKey.equals("")) {
+            startButton.setText("<Click To Set>");
+        } else {
+            startButton.setText(runKey);
+        }
+        if (stopKey.equals("")) {
+            stopButton.setText("<Click To Set>");
+        } else {
+            stopButton.setText(stopKey);
+        }
+    }
+
+    @FXML
+    protected void onStartButtonClick() {
+        startButtonListener.startListening();
+        startButton.setText("<Press Any Key>");
+    }
+
+    @FXML
+    protected void onStopButtonClick() {
+        stopButtonListener.startListening();
+        stopButton.setText("<Press Any Key>");
+    }
+
+    private void startButtonCallback() {
+        String listenKey = startButtonListener.getInputValue();
+        commandFunction.getStartListener().getListeningKey().setValue(listenKey);
+
+        Platform.runLater(() -> startButton.setText(listenKey));
+        startButtonListener.stopListening();
+    }
+
+    private void stopButtonCallback() {
+        String listenKey = stopButtonListener.getInputValue();
+        commandFunction.getStopListener().getListeningKey().setValue(listenKey);
+
+        Platform.runLater(() -> stopButton.setText(listenKey));
+        stopButtonListener.stopListening();
     }
 
     public void updateSearchResults(KeyEvent letter) {

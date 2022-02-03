@@ -4,8 +4,6 @@ import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.controllers.commands.CommandController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -121,9 +119,9 @@ public class MainController extends FXMLController {
         assert stageAndLoader != null;
 
         Stage stage = (Stage) stageAndLoader[0];
-        FXMLLoader fxmlLaoder = (FXMLLoader) stageAndLoader[1];
-        VariableListController controller = fxmlLaoder.getController();
-        controller.initData(this);
+        FXMLLoader fxmlLoader = (FXMLLoader) stageAndLoader[1];
+        FunctionSettingsController controller = fxmlLoader.getController();
+        controller.initData(this, getSelectedCommandFunction());
 
         stage.setOnHiding(windowEvent -> enableAddCommandButton());
         stage.show();

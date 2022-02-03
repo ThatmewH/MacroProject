@@ -1,8 +1,12 @@
 package com.example.macroproject.commands;
 
+import com.example.macroproject.listener.KeyInput;
+import com.example.macroproject.listener.Listener;
 import com.example.macroproject.variables.IntegerVariable;
+import com.example.macroproject.variables.StringVariable;
 import com.example.macroproject.variables.Variable;
 
+import javax.print.attribute.SetOfIntegerSyntax;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,16 +17,35 @@ public class CommandFunction {
     protected volatile boolean isRunning = false;
     protected IntegerVariable commandIndex;
     protected List<Command> functionCommands = new ArrayList<>();
+    protected KeyInput startListener = new KeyInput(() -> onEnableListener(true), new StringVariable("", ""));
+    protected KeyInput stopListener = new KeyInput(() -> onEnableListener(false), new StringVariable("", ""));
 
     public CommandFunction(String name) {
         this.name = name;
         commandIndex = new IntegerVariable("commandIndex" + name, 0);
         Variable.addNewVariable(commandIndex);
         CommandFunction.addFunction(this);
+
+        startListener.startListening();
+        stopListener.startListening();
     }
 
     public void addCommand(Command command) {
         functionCommands.add(command);
+    }
+
+    public void onEnableListener(boolean enabling) {
+        if (startListener.getListeningKey().getValue().equals(stopListener.getListeningKey().getValue())) {
+            if (enabling) {
+                toggleRun();
+            }
+        } else {
+            if (enabling) {
+                start();
+            } else {
+                stopMacro();
+            }
+        }
     }
 
     public void removeCommand(int index) {
@@ -53,6 +76,14 @@ public class CommandFunction {
         }
     }
 
+    public void toggleRun() {
+        if (isRunning) {
+            stopMacro();
+        } else {
+            start();
+        }
+    }
+
     public void setFunctionCommands(List<Command> newFunctionCommands) {
         this.functionCommands = newFunctionCommands;
     }
@@ -68,6 +99,14 @@ public class CommandFunction {
 
     public List<Command> getFunctionCommands() {
         return functionCommands;
+    }
+
+    public KeyInput getStartListener() {
+        return startListener;
+    }
+
+    public KeyInput getStopListener() {
+        return stopListener;
     }
 
     public static void addFunction(CommandFunction function) {
@@ -114,6 +153,8 @@ public class CommandFunction {
 
         function.commandIndex = null;
         function.functionCommands = null;
+        Listener.removeKeyListener(function.getStartListener());
+        Listener.removeKeyListener(function.getStopListener());
         function = null;
     }
 }

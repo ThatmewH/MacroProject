@@ -20,4 +20,5 @@ module com.example.macroproject {
     exports com.example.macroproject;
     exports com.example.macroproject.commands;
     exports com.example.macroproject.variables;
+    exports com.example.macroproject.listener;
 }
