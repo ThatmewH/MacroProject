@@ -41,12 +41,6 @@ public class MainController extends FXMLController {
             disableRemoveCommandButton();
             enableAddCommandButton();
         });
-
-        getSelectedCommandFunction().addCommand(new WaitCommand(new IntegerVariable("", 0), getSelectedCommandFunction()));
-        getSelectedCommandFunction().addCommand(new WaitCommand(new IntegerVariable("", 1), getSelectedCommandFunction()));
-        getSelectedCommandFunction().addCommand(new WaitCommand(new IntegerVariable("", 2), getSelectedCommandFunction()));
-        getSelectedCommandFunction().addCommand(new WaitCommand(new IntegerVariable("", 3), getSelectedCommandFunction()));
-        refreshTabCommands(getSelectedTab());
     }
 
     public int getCommandIndex() {
