@@ -11,6 +11,7 @@ module com.example.macroproject {
     opens com.example.macroproject.controllers to javafx.fxml;
     opens com.example.macroproject.controllers.commands to javafx.fxml;
     opens com.example.macroproject.controllers.listeners to javafx.fxml;
+
     exports com.example.macroproject;
     exports com.example.macroproject.commands;
     exports com.example.macroproject.variables;
