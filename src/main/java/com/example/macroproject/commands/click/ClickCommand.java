@@ -92,8 +92,6 @@ public class ClickCommand extends Command {
         }
     }
 
-
-
     @Override
     public String toString() {
         return String.format("Click - PosX: %s, PosY: %s - NumClicks: %s - Cps: %s - ClickLength: %s"

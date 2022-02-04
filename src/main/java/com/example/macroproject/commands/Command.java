@@ -5,9 +5,10 @@ import com.example.macroproject.commands.listener.WaitForClick;
 import com.example.macroproject.commands.listener.WaitForKey;
 import com.example.macroproject.commands.time.WaitCommand;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Command {
+public abstract class Command implements Serializable {
     protected CommandFunction function;
 
     public static ArrayList<RegisteredCommand> registeredCommands = new ArrayList<>() {

@@ -109,6 +109,28 @@ public class CommandFunction {
         return stopListener;
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void changeCommandPosition(int fromPosition, int toPosition) {
+        toPosition = Math.max(0, Math.min(toPosition, functionCommands.size() - 1));
+        fromPosition = Math.max(0, Math.min(fromPosition, functionCommands.size() - 1));
+
+        Command command = functionCommands.get(fromPosition);
+        functionCommands.remove(fromPosition);
+        functionCommands.add(toPosition, command);
+    }
+
+    public int getCommandIndex(Command command) {
+        for (int i = 0; i < functionCommands.size(); i++) {
+            if (command == functionCommands.get(i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void addFunction(CommandFunction function) {
         if (getFunction(function.name) == null) {
             functions.add(function);
@@ -124,10 +146,6 @@ public class CommandFunction {
             }
         }
         return null;
-    }
-
-    public boolean isRunning() {
-        return isRunning;
     }
 
     public static void CreateMainFunction() {
