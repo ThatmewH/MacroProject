@@ -18,8 +18,6 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:17.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:17.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:win:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-media:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-media:win:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
@@ -35,5 +33,17 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.kwhat:jnativehook:2.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.clerezza.scala:script-engine:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.11.6" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-reflect:2.11.6" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-xml_2.11:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.11.6" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-actors:2.11.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.felix:org.apache.felix.scr.annotations:1.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.osgi:org.osgi.compendium:4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.osgi:org.osgi.core:4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.clerezza.ext:slf4j-scala-api:1.6.3" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.1" level="project" />
   </component>
 </module>

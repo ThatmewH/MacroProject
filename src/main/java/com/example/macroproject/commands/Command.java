@@ -25,6 +25,7 @@ public abstract class Command implements Serializable {
             throw new IllegalArgumentException();
         }
         this.function = function;
+
     }
 
     abstract public void run();
