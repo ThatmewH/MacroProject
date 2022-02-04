@@ -16,5 +16,6 @@ public class Main {
 
         GlobalScreen.removeNativeKeyListener(l);
         GlobalScreen.removeNativeMouseListener(l);
+        GlobalScreen.unregisterNativeHook();
     }
 }

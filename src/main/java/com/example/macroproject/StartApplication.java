@@ -1,7 +1,6 @@
 package com.example.macroproject;
 
 import com.example.macroproject.commands.CommandFunction;
-import com.github.kwhat.jnativehook.GlobalScreen;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,9 +26,6 @@ public class StartApplication extends Application {
 
     @Override
     public void stop(){
-        System.out.println("Exiting App");
         // Save file
-        System.exit(0);
-
     }
 }
