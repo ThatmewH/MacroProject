@@ -24,13 +24,14 @@ public class LogicInterrupter {
     };
 
     public static String reverseString(String string) {
+        String seperatorSymbol = "]";
         string = string.replace(" ", "");
         for (String operationSymbol : RegisteredLogicOperation.operationSymbols) {
             if (string.contains(operationSymbol)) {
-                string = string.replace(operationSymbol, "]" + operationSymbol + "]");
+                string = string.replace(operationSymbol, seperatorSymbol + operationSymbol + seperatorSymbol);
             }
         }
-        String[] splitString = string.split("]");
+        String[] splitString = string.split(seperatorSymbol);
 
         for(int i = 0; i < splitString.length / 2; i++)
         {
@@ -46,21 +47,32 @@ public class LogicInterrupter {
         return sb.toString();
     }
 
-    public static Serializable evalString(String command) {
+    public static Serializable runEvaluation(String command) {
+        String seperatorSymbol = "]";
+
         for (String operationSymbol : RegisteredLogicOperation.operationSymbols) {
             if (command.contains(operationSymbol)) {
-                command = command.replace(operationSymbol, "]" + operationSymbol + "]");
+                command = command.replace(operationSymbol, seperatorSymbol + operationSymbol + seperatorSymbol);
+            }
+            // Have to change "==" to something different and change it back once the "=" operator has been searched for
+            // otherwise it will add unnecessary seperator symbols
+            if (operationSymbol.equals("==")) {
+                command = command.replace(operationSymbol, "~");
             }
         }
-        if (command.contains("]")) {
-            command = command.replaceFirst("]", "`");
-            command = command.replaceFirst("]", "`");
-            command = command.replace("]", "");
+        command = command.replace("~", "==");
+        // If there is still commands to be evaluated
+        if (command.contains(seperatorSymbol)) {
+            command = command.replaceFirst(seperatorSymbol, "`");
+            command = command.replaceFirst(seperatorSymbol, "`");
+
+            command = command.replace(seperatorSymbol, "");
 
             String[] splitString = command.split("`");
 
             String firstVar =  splitString[0];
             String secondVar =  splitString[2];
+
             LogicOperation logicOperation = RegisteredLogicOperation.getLogicOperationFromSymbol(splitString[1], firstVar, secondVar);
             return logicOperation.eval();
         }
@@ -68,10 +80,13 @@ public class LogicInterrupter {
         return command;
     }
 
+    public static Serializable evalString(String string) {
+        return runEvaluation(reverseString(string));
+    }
+
     public static void main(String[] args) {
         Variable.addNewVariable(new IntegerVariable("test", 3));
-        System.out.println(evalString(reverseString("6 + 1 * 4 + 50 - 1 / 2 - test ~ test")));
-
-        System.out.println(Variable.getVariable("test").getValue());
+        Variable.addNewVariable(new IntegerVariable("testt", 5));
+        System.out.println(evalString("20 / 2 = test"));
     }
 }

@@ -15,13 +15,13 @@ public class SetOperation extends LogicOperation {
     public Serializable eval() {
         try {
             variables.get(0).setValue(variables.get(1).getValue());
-            return true;
+            return variables.get(0).getValue();
         } catch (Exception e) {
-            return false;
+            return variables.get(0).getValue();
         }
     }
 
     public static RegisteredLogicOperation registerOperation() {
-        return new RegisteredLogicOperation("~", SetOperation.class);
+        return new RegisteredLogicOperation("=", SetOperation.class);
     }
 }

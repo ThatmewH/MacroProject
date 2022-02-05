@@ -15,7 +15,7 @@ public abstract class LogicOperation {
     protected void getVariables(String[] variables) {
 
         for (String input : variables) {
-            String t = "" + LogicInterrupter.evalString(input);
+            String t = "" + LogicInterrupter.runEvaluation(input);
             if (Variable.checkVariableExists(t)) {
                 this.variables.add(Variable.getVariable(t));
             } else {
