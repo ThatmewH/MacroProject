@@ -94,10 +94,7 @@ public abstract class Variable <Value extends java.io.Serializable> {
         }
 
         // The input variable type is a String
-        if (input != null) {
-            return input;
-        }
-        return null;
+        return input;
     }
 
     public static Variable getVariableFromClass(Serializable value) {
@@ -113,6 +110,16 @@ public abstract class Variable <Value extends java.io.Serializable> {
         return null;
     }
 
+    public static Variable checkExistingVariables(String input, Class variableClass) {
+        Variable variable = Variable.getVariable(input);
+        if (variable != null) {
+            if (variable.getValueType() == variableClass) {
+                return variable;
+            }
+        }
+        return null;
+    }
+
     /**
      * Checks if the user input is the correct type or references an existing variable in the existing static list
      *
@@ -124,11 +131,9 @@ public abstract class Variable <Value extends java.io.Serializable> {
         }
 
         if (checkExistingVariables) {
-            Variable variable = Variable.getVariable(input);
+            Variable variable = checkExistingVariables(input, variableClass);
             if (variable != null) {
-                if (variable.getValueType() == variableClass) {
-                    return variable;
-                }
+                return variable;
             }
         }
 
