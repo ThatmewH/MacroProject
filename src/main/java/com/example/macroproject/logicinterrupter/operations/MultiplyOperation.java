@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class MultiplyOperation extends LogicOperation {
 
     public MultiplyOperation(String firstVariable, String secondVariable) {
-        super("*", firstVariable, secondVariable);
+        super(firstVariable, secondVariable);
     }
 
     @Override

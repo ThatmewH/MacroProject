@@ -4,6 +4,8 @@ import com.example.macroproject.logicinterrupter.operations.*;
 import com.example.macroproject.variables.IntegerVariable;
 import com.example.macroproject.variables.Variable;
 
+import javax.crypto.BadPaddingException;
+import javax.swing.text.BadLocationException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +19,7 @@ public class LogicInterrupter {
             add(EqualsOperation.registerOperation());
             add(MultiplyOperation.registerOperation());
             add(SubOperation.registerOperation());
+            add(SetOperation.registerOperation());
         }
     };
 
@@ -44,22 +47,31 @@ public class LogicInterrupter {
     }
 
     public static Serializable evalString(String command) {
-        int letterIndex = 0;
-        for (Character character : command.toCharArray()) {
-            String letter = character.toString();
-            if (RegisteredLogicOperation.operationSymbols.contains(letter)) {
-                String firstVar =  command.substring(0, letterIndex);
-                String secondVar =  command.substring(letterIndex + 1, command.toCharArray().length);
-                LogicOperation logicOperation = RegisteredLogicOperation.getLogicOperationFromSymbol(letter, firstVar, secondVar);
-                return logicOperation.eval();
+        for (String operationSymbol : RegisteredLogicOperation.operationSymbols) {
+            if (command.contains(operationSymbol)) {
+                command = command.replace(operationSymbol, "]" + operationSymbol + "]");
             }
-            letterIndex++;
         }
+        if (command.contains("]")) {
+            command = command.replaceFirst("]", "`");
+            command = command.replaceFirst("]", "`");
+            command = command.replace("]", "");
+
+            String[] splitString = command.split("`");
+
+            String firstVar =  splitString[0];
+            String secondVar =  splitString[2];
+            LogicOperation logicOperation = RegisteredLogicOperation.getLogicOperationFromSymbol(splitString[1], firstVar, secondVar);
+            return logicOperation.eval();
+        }
+
         return command;
     }
 
     public static void main(String[] args) {
         Variable.addNewVariable(new IntegerVariable("test", 3));
-        System.out.println(evalString(reverseString("6 + 1 * 4 + 50 - 1 / 2 - test = 35")));
+        System.out.println(evalString(reverseString("6 + 1 * 4 + 50 - 1 / 2 - test ~ test")));
+
+        System.out.println(Variable.getVariable("test").getValue());
     }
 }

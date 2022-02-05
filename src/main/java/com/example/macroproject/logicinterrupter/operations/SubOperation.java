@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class SubOperation extends LogicOperation {
 
     public SubOperation(String firstVariable, String secondVariable) {
-        super("-", firstVariable, secondVariable);
+        super(firstVariable, secondVariable);
     }
 
     @Override

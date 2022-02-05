@@ -5,17 +5,23 @@ import com.example.macroproject.logicinterrupter.RegisteredLogicOperation;
 
 import java.io.Serializable;
 
-public class EqualsOperation extends LogicOperation {
-    public EqualsOperation(String firstVariable, String secondVariable) {
+public class SetOperation extends LogicOperation {
+
+    public SetOperation(String firstVariable, String secondVariable) {
         super(firstVariable, secondVariable);
     }
 
     @Override
     public Serializable eval() {
-        return variables.get(0).getValue().equals(variables.get(1).getValue());
+        try {
+            variables.get(0).setValue(variables.get(1).getValue());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static RegisteredLogicOperation registerOperation() {
-        return new RegisteredLogicOperation("==", EqualsOperation.class);
+        return new RegisteredLogicOperation("~", SetOperation.class);
     }
 }

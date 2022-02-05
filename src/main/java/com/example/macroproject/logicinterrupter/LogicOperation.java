@@ -8,10 +8,8 @@ import java.util.ArrayList;
 public abstract class LogicOperation {
 
     protected ArrayList<Variable> variables = new ArrayList<>();
-    protected String operationSymbol;
 
-    public LogicOperation(String operationSymbol, String... variables) {
-        this.operationSymbol = operationSymbol;
+    public LogicOperation(String... variables) {
         getVariables(variables);
     }
     protected void getVariables(String[] variables) {
@@ -24,10 +22,6 @@ public abstract class LogicOperation {
                 this.variables.add(Variable.checkVariableReference(t, Variable.getInputValue(t).getClass(), true));
             }
         }
-    }
-
-    public String getOperationSymbol() {
-        return operationSymbol;
     }
 
     public abstract Serializable eval();

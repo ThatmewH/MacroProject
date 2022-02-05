@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class DivideOperation extends LogicOperation {
 
     public DivideOperation(String firstVariable, String secondVariable) {
-        super("/", firstVariable, secondVariable);
+        super(firstVariable, secondVariable);
     }
 
     @Override
