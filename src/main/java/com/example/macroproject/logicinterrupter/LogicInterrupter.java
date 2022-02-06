@@ -172,6 +172,7 @@ public class LogicInterrupter {
         }
         return -1;
     }
+
     /**
      * Commands must be written from left to right, so something like 5 * 5 : 6 ? 6 * 6 == 36 will not work because it
        will do the "5 * 5 : 6" command first which will work, then it should do the "6 * 6 == 36" to get a boolean,
