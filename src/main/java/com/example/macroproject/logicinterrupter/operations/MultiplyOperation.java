@@ -4,11 +4,16 @@ import com.example.macroproject.logicinterrupter.LogicOperation;
 import com.example.macroproject.logicinterrupter.RegisteredLogicOperation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MultiplyOperation extends LogicOperation {
 
-    public MultiplyOperation(String firstVariable, String secondVariable) {
-        super(firstVariable, secondVariable);
+    public MultiplyOperation() {
+        super(new ArrayList<>(){{
+                    add(0);
+                    add(2);
+                }}
+        );
     }
 
     @Override

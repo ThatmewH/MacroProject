@@ -2,6 +2,7 @@ package com.example.macroproject.variables;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 public abstract class Variable <Value extends java.io.Serializable> {
@@ -12,6 +13,7 @@ public abstract class Variable <Value extends java.io.Serializable> {
             add(Float.class);
             add(Boolean.class);
             add(String.class);
+            add(ArrayList.class);
         }
     };
 
@@ -78,6 +80,11 @@ public abstract class Variable <Value extends java.io.Serializable> {
                 return Double.valueOf(input);
             } catch (Exception ignored) {}
 
+            try {
+                if (input.contains(","))
+                    System.out.println("[es[".replaceFirst(String.valueOf("["), ""));
+                return new ArrayList<>(Arrays.asList(input.replace("[", "").replace("]", "").split(",")));
+            } catch (Exception ignored) {}
         } else {
             try {
                 return Integer.valueOf(input);
@@ -90,6 +97,11 @@ public abstract class Variable <Value extends java.io.Serializable> {
             try {
                 if (input.equals("true") || input.equals("false"))
                 return Boolean.valueOf(input);
+            } catch (Exception ignored) {}
+
+            try {
+                if (input.contains(","))
+                    return new ArrayList<>(Arrays.asList(input.replace("[", "").replace("]", "").split(",")));
             } catch (Exception ignored) {}
         }
 
@@ -106,6 +118,8 @@ public abstract class Variable <Value extends java.io.Serializable> {
             return new FloatVariable("", (Float) value);
         } else if (value.getClass() == String.class) {
             return new StringVariable("", (String) value);
+        } else if (value.getClass() == ArrayList.class) {
+            return new ListVariable("", (ArrayList) value);
         }
         return null;
     }

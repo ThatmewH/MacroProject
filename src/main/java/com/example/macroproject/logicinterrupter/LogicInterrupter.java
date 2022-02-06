@@ -1,14 +1,11 @@
 package com.example.macroproject.logicinterrupter;
 
 import com.example.macroproject.logicinterrupter.operations.*;
-import com.example.macroproject.variables.IntegerVariable;
+import com.example.macroproject.variables.BooleanVariable;
 import com.example.macroproject.variables.Variable;
 
-import javax.crypto.BadPaddingException;
-import javax.swing.text.BadLocationException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LogicInterrupter {
 
@@ -20,6 +17,8 @@ public class LogicInterrupter {
             add(MultiplyOperation.registerOperation());
             add(SubOperation.registerOperation());
             add(SetOperation.registerOperation());
+            add(IfOperation.registerOperation());
+            add(ToListOperation.registerOperation());
         }
     };
 
@@ -48,7 +47,7 @@ public class LogicInterrupter {
     }
 
     public static Serializable runEvaluation(String command) {
-        String seperatorSymbol = "]";
+        String seperatorSymbol = "}";
 
         for (String operationSymbol : RegisteredLogicOperation.operationSymbols) {
             if (command.contains(operationSymbol)) {
@@ -61,32 +60,66 @@ public class LogicInterrupter {
             }
         }
         command = command.replace("~", "==");
+
         // If there is still commands to be evaluated
         if (command.contains(seperatorSymbol)) {
             command = command.replaceFirst(seperatorSymbol, "`");
             command = command.replaceFirst(seperatorSymbol, "`");
-
-            command = command.replace(seperatorSymbol, "");
-
             String[] splitString = command.split("`");
 
-            String firstVar =  splitString[0];
-            String secondVar =  splitString[2];
+            LogicOperation logicOperation = RegisteredLogicOperation.getLogicOperationFromSymbol(splitString[1]);
+            // 1 `+` 1                            = 2 replaceFirsts - 2 variableOffsets
+            // bool `?` int `:` int                 = 4 replaceFirsts - 3 variableOffsets
+            // bool `?` int `:` int `-` int           = 6 replaceFirsts - 4 variableOffsets
+            // bool `?` int `:` int `-` int `)` int     = 8 replaceFirsts - 5 variableOffsets
+            //
+            // split the string further for commands that need more than 2 vairables, such as the ? : command
+            for (int i = 0; i < (logicOperation.variableOffsets.size() - 1) * 2 - 2; i++) {
+                command = command.replaceFirst(seperatorSymbol, "`");
+                command = command.replaceFirst(seperatorSymbol, "`");
+            }
+            command = command.replace(seperatorSymbol, "");
+            splitString = command.split("`");
 
-            LogicOperation logicOperation = RegisteredLogicOperation.getLogicOperationFromSymbol(splitString[1], firstVar, secondVar);
+
+            ArrayList<String> variables = new ArrayList<>();
+            for (int variableOffset : logicOperation.variableOffsets) {
+                variables.add(splitString[variableOffset]);
+            }
+            logicOperation.getVariables(variables);
+
             return logicOperation.eval();
         }
 
         return command;
     }
 
-    public static Serializable evalString(String string) {
-        return runEvaluation(reverseString(string));
+    private static String evalStringBrackets(String command) {
+        while (command.contains("(") && command.contains(")")) {
+            int startIndex = command.indexOf("(");
+            int endIndex = command.lastIndexOf(")");
+            String bracketCommand = command.substring(startIndex, endIndex + 1);
+            String commandWithoutBrackets = command.substring(startIndex + 1, endIndex);
+            command = command.replace(bracketCommand, evalString(commandWithoutBrackets).toString());
+        }
+        return command;
     }
 
+    public static Serializable evalString(String command) {
+        command = evalStringBrackets(command);
+        return runEvaluation(reverseString(command));
+    }
+
+
+    /**
+     * Commands must be written from left to right, so something like 5 * 5 : 6 ? 6 * 6 == 36 will not work because it
+       will do the "5 * 5 : 6" command first which will work, then it should do the "6 * 6 == 36" to get a boolean,
+       however, that would be jumping to the right to run a command and ignoring the "?" command, which cant happen
+       so it takes the 6 as the supposed boolean and returns an error. Brackets must be used to run a command first
+     * @param args
+     */
     public static void main(String[] args) {
-        Variable.addNewVariable(new IntegerVariable("test", 3));
-        Variable.addNewVariable(new IntegerVariable("testt", 5));
-        System.out.println(evalString("20 / 2 = test"));
+        Variable.addNewVariable(new BooleanVariable("test", false));
+        System.out.println(evalString("((t = 50)/50) = p)"));
     }
 }

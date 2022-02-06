@@ -21,10 +21,9 @@ public class RegisteredLogicOperation {
         this.symbol = symbol;
     }
 
-    public static LogicOperation createOperationFromRegisteredOperation(RegisteredLogicOperation logicOperation
-            , String firstVar, String secondVar) {
+    public static LogicOperation createOperationFromRegisteredOperation(RegisteredLogicOperation logicOperation) {
         try {
-            LogicOperation operation = (LogicOperation) logicOperation.operationClass.getConstructors()[0].newInstance(firstVar, secondVar);
+            LogicOperation operation = (LogicOperation) logicOperation.operationClass.getConstructors()[0].newInstance();
             return operation;
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
@@ -32,11 +31,10 @@ public class RegisteredLogicOperation {
         return null;
     }
 
-    public static LogicOperation getLogicOperationFromSymbol(String operationSymbol
-            , String firstVar, String secondVar) {
+    public static LogicOperation getLogicOperationFromSymbol(String operationSymbol) {
         for (RegisteredLogicOperation registeredLogicOperation : LogicInterrupter.operations) {
             if (registeredLogicOperation.symbol.equals(operationSymbol)) {
-                return createOperationFromRegisteredOperation(registeredLogicOperation, firstVar, secondVar);
+                return createOperationFromRegisteredOperation(registeredLogicOperation);
             }
         }
         return null;
