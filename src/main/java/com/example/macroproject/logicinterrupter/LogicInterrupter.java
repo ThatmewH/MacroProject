@@ -96,8 +96,8 @@ public class LogicInterrupter {
 
     private static String evalStringBrackets(String command) {
         while (command.contains("(") && command.contains(")")) {
-            int startIndex = command.indexOf("(");
-            int endIndex = command.lastIndexOf(")");
+            int startIndex = getHighestOpenBracket(command);
+            int endIndex = getHighestClosedBracket(command);
             String bracketCommand = command.substring(startIndex, endIndex + 1);
             String commandWithoutBrackets = command.substring(startIndex + 1, endIndex);
             command = command.replace(bracketCommand, evalString(commandWithoutBrackets).toString());
@@ -110,16 +110,76 @@ public class LogicInterrupter {
         return runEvaluation(reverseString(command));
     }
 
+    private static int getMaxBracketLevel(String command) {
+        int currentBracketLevel = 0;
+        int maxBracketLevel = 0;
+        for (Character letter : command.toCharArray()) {
+            String strLetter = letter.toString();
+            if (strLetter.equals("(")) {
+                currentBracketLevel++;
+                maxBracketLevel = Math.max(currentBracketLevel, maxBracketLevel);
+            } else if (strLetter.equals(")")) {
+                currentBracketLevel--;
+            }
+        }
+        return maxBracketLevel;
+    }
 
+    private static int getOpenBracketLevel(String command, int bracketIndex) {
+        int bracketLevel = 0;
+        for (int i = 0; i <= bracketIndex; i++) {
+            if (String.valueOf(command.charAt(i)).equals("(")) {
+                bracketLevel++;
+            } else if (String.valueOf(command.charAt(i)).equals(")")) {
+                bracketLevel--;
+            }
+        }
+        return bracketLevel;
+    }
+
+    private static int getClosedBracketLevel(String command, int bracketIndex) {
+        int bracketLevel = 0;
+        for (int i = command.toCharArray().length - 1; i >= bracketIndex; i--) {
+            if (String.valueOf(command.charAt(i)).equals(")")) {
+                bracketLevel++;
+            } else if (String.valueOf(command.charAt(i)).equals("(")) {
+                bracketLevel--;
+            }
+        }
+        return bracketLevel;
+    }
+
+    private static int getHighestOpenBracket(String command) {
+        int maxBracketLevel = getMaxBracketLevel(command);
+        for (int i = 0; i < command.toCharArray().length; i++) {
+            if (String.valueOf(command.charAt(i)).equals("(")) {
+                if (getOpenBracketLevel(command, i) == maxBracketLevel) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private static int getHighestClosedBracket(String command) {
+        int maxBracketLevel = getMaxBracketLevel(command);
+        for (int i = 0; i < command.toCharArray().length; i++) {
+            if (String.valueOf(command.charAt(i)).equals(")")) {
+                if (getClosedBracketLevel(command, i) == maxBracketLevel) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
     /**
      * Commands must be written from left to right, so something like 5 * 5 : 6 ? 6 * 6 == 36 will not work because it
        will do the "5 * 5 : 6" command first which will work, then it should do the "6 * 6 == 36" to get a boolean,
-       however, that would be jumping to the right to run a command and ignoring the "?" command, which cant happen
+       however, that would be jumping to the right to run a command and ignoring the "?" command, which can't happen
        so it takes the 6 as the supposed boolean and returns an error. Brackets must be used to run a command first
      * @param args
      */
     public static void main(String[] args) {
-        Variable.addNewVariable(new BooleanVariable("test", false));
-        System.out.println(evalString("((t = 50)/50) = p)"));
+        System.out.println(evalString(""));
     }
 }
