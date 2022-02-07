@@ -3,7 +3,6 @@ package com.example.macroproject.commands.logic;
 import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
-import com.example.macroproject.variables.IntegerVariable;
 
 public class JumpCommand extends Command {
     private EndJumpCommand endJumpCommand;
@@ -27,6 +26,11 @@ public class JumpCommand extends Command {
     @Override
     public String toString() {
         return String.format("Jump to line: %s", function.getCommandIndex(endJumpCommand));
+    }
+
+    @Override
+    public void cleanSelfToBeRemoved() {
+        function.removeCommand(endJumpCommand);
     }
 
     public static RegisteredCommand registerCommand() {
