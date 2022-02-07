@@ -30,7 +30,9 @@ public class JumpCommand extends Command {
 
     @Override
     public void cleanSelfToBeRemoved() {
-        function.removeCommand(endJumpCommand);
+        try {
+            function.removeCommand(endJumpCommand);
+        } catch (Exception ignored) {}
     }
 
     public static RegisteredCommand registerCommand() {

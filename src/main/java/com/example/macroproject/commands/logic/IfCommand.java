@@ -50,12 +50,14 @@ public class IfCommand extends Command {
         return "If: " + inputCommand.getValue();
     }
 
-    public static RegisteredCommand registerCommand() {
-        return new RegisteredCommand("If", IfCommand.class, "commands/if.fxml");
-    }
-
     @Override
     public void cleanSelfToBeRemoved() {
-        function.removeCommand(endIfCommand);
+        try {
+            function.removeCommand(endIfCommand);
+        } catch (Exception ignored) {}
+    }
+
+    public static RegisteredCommand registerCommand() {
+        return new RegisteredCommand("If", IfCommand.class, "commands/if.fxml");
     }
 }
