@@ -17,7 +17,7 @@ public class ToListOperation extends LogicOperation {
 
     @Override
     public Serializable eval() {
-        return variables.get(0).getValue() + ", " + variables.get(1).getValue();
+        return variables.get(0).getValue() + "," + variables.get(1).getValue();
     }
 
     public static RegisteredLogicOperation registerOperation() {

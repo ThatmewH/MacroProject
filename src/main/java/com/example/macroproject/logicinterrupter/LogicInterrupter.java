@@ -24,7 +24,6 @@ public class LogicInterrupter {
 
     public static String reverseString(String string) {
         String seperatorSymbol = "]";
-        string = string.replace(" ", "");
         for (String operationSymbol : RegisteredLogicOperation.operationSymbols) {
             if (string.contains(operationSymbol)) {
                 string = string.replace(operationSymbol, seperatorSymbol + operationSymbol + seperatorSymbol);
@@ -112,6 +111,7 @@ public class LogicInterrupter {
      so it takes the 6 as the supposed boolean and returns an error. Brackets must be used to run a command first
      */
     public static Serializable evalString(String command) {
+        command = command.replace(" ", "");
         command = evalStringBrackets(command);
         return runEvaluation(reverseString(command));
     }

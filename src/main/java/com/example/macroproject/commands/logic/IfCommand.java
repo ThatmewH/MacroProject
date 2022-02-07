@@ -6,6 +6,8 @@ import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.logicinterrupter.LogicInterrupter;
 import com.example.macroproject.variables.StringVariable;
 
+import java.io.Serializable;
+
 public class IfCommand extends Command {
     protected StringVariable inputCommand;
     protected Command endIfCommand;
@@ -19,9 +21,13 @@ public class IfCommand extends Command {
 
     @Override
     public void run() {
-        if ((Boolean) LogicInterrupter.evalString(inputCommand.getValue())) {
-            return;
-        } else {
+        Serializable output = LogicInterrupter.evalString(inputCommand.getValue());
+
+        if (output instanceof String) {
+            output = Boolean.valueOf((String) output);
+        }
+
+        if (!((Boolean) output)) {
             int newCommandIndex = function.getCommandIndex(endIfCommand);
             if (newCommandIndex != -1) {
                 function.setCommandIndex(newCommandIndex);

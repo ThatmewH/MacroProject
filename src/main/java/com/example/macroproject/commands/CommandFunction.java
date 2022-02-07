@@ -50,18 +50,24 @@ public class CommandFunction {
     }
 
     public void removeCommand(int index) {
-        functionCommands.get(index).cleanSelfToBeRemoved();
-        functionCommands.remove(index);
+        try {
+            functionCommands.get(index).cleanSelfToBeRemoved();
+            functionCommands.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Command getCommand(int index) {
+        return functionCommands.get(index);
     }
 
     public void removeCommand(Command removeCommand) {
-        for (Iterator iterator = functionCommands.iterator(); iterator.hasNext();) {
-            Command command = (Command) iterator.next();
-            if (command == removeCommand) {
-                command.cleanSelfToBeRemoved();
-                iterator.remove();
-            }
-        }
+        int index = functionCommands.indexOf(removeCommand);
+        functionCommands.get(index).cleanSelfToBeRemoved();
+        // The index of the command could possibly have changed
+        index = functionCommands.indexOf(removeCommand);
+        functionCommands.remove(index);
     }
 
     private void run() {
@@ -134,10 +140,12 @@ public class CommandFunction {
     }
 
     public int getCommandIndex(Command command) {
-        for (int i = 0; i < functionCommands.size(); i++) {
-            if (command == functionCommands.get(i)) {
+        int i = 0;
+        for (Command nextCommand : functionCommands) {
+            if (command == nextCommand) {
                 return i;
             }
+            i++;
         }
         return -1;
     }

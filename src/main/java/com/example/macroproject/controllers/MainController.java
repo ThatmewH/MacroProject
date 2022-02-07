@@ -165,7 +165,9 @@ public class MainController extends FXMLController {
     @FXML
     protected void removeCommand() {
         int index = getSelectedListView().getSelectionModel().getSelectedIndex();
-        getSelectedCommandFunction().removeCommand(index);
+        Command command = getSelectedCommandFunction().getCommand(index);
+
+        getSelectedCommandFunction().removeCommand(command);
         getSelectedListView().getItems().remove(index);
 
         if (getSelectedListView().getItems().size() == 0) {
