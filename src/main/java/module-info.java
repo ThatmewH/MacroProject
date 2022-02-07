@@ -5,6 +5,7 @@ module com.example.macroproject {
     requires org.controlsfx.controls;
     requires java.desktop;
     requires jnativehook;
+    requires opencv;
 
     opens com.example.macroproject to javafx.fxml;
     opens com.example.macroproject.commands to javafx.fxml;

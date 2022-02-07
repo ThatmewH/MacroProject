@@ -61,7 +61,7 @@ public abstract class Variable <Value extends java.io.Serializable> {
 
     public static Variable getVariable(String variableName) {
         for (Variable variable : variables) {
-            if (variable.name.equals(variableName)) {
+            if (variable.name.equalsIgnoreCase(variableName)) {
                 return variable;
             }
         }
@@ -94,7 +94,7 @@ public abstract class Variable <Value extends java.io.Serializable> {
             } catch (Exception ignored) {}
 
             try {
-                if (input.equals("true") || input.equals("false"))
+                if (input.equalsIgnoreCase("true") || input.equalsIgnoreCase("false"))
                 return Boolean.valueOf(input);
             } catch (Exception ignored) {}
 

@@ -6,6 +6,7 @@ import com.example.macroproject.commands.listener.WaitForKey;
 import com.example.macroproject.commands.logic.IfCommand;
 import com.example.macroproject.commands.logic.JumpCommand;
 import com.example.macroproject.commands.logic.LogicCommand;
+import com.example.macroproject.commands.logic.RunFunctionCommand;
 import com.example.macroproject.commands.time.WaitCommand;
 
 import java.io.Serializable;
@@ -14,6 +15,12 @@ import java.util.ArrayList;
 public abstract class Command implements Serializable {
     protected CommandFunction function;
 
+
+    /**
+     * To Create a new command, first create a class that extends the COMMAND class, then add a registerCommand()
+       function to that class that returns a registered command. Then create a .fxml file and controller for the command
+       popup. Then call the registerCommand() function below in registeredCommands.
+     */
     public static ArrayList<RegisteredCommand> registeredCommands = new ArrayList<>() {
         {
             add(ClickCommand.registerCommand());
@@ -23,6 +30,7 @@ public abstract class Command implements Serializable {
             add(IfCommand.registerCommand());
             add(LogicCommand.registerCommand());
             add(JumpCommand.registerCommand());
+            add(RunFunctionCommand.registerCommand());
         }
     };
 

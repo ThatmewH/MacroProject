@@ -38,11 +38,11 @@ public class CommandFunction {
     public void onEnableListener(boolean enabling) {
         if (startListener.getListeningKey().getValue().equals(stopListener.getListeningKey().getValue())) {
             if (enabling) {
-                toggleRun();
+                toggleRun(true);
             }
         } else {
             if (enabling) {
-                start();
+                start(true);
             } else {
                 stopMacro();
             }
@@ -86,18 +86,22 @@ public class CommandFunction {
         stopMacro();
     }
 
-    public void start() {
+    public void start(boolean onNewThread) {
         if (!isRunning) {
-            Thread thread = new Thread(this::run);
-            thread.start();
+            if (onNewThread) {
+                Thread thread = new Thread(this::run);
+                thread.start();
+            } else {
+                this.run();
+            }
         }
     }
 
-    public void toggleRun() {
+    public void toggleRun(boolean onNewThread) {
         if (isRunning) {
             stopMacro();
         } else {
-            start();
+            start(onNewThread);
         }
     }
 
@@ -131,12 +135,14 @@ public class CommandFunction {
     }
 
     public void changeCommandPosition(int fromPosition, int toPosition) {
-        toPosition = Math.max(0, Math.min(toPosition, functionCommands.size() - 1));
-        fromPosition = Math.max(0, Math.min(fromPosition, functionCommands.size() - 1));
+        if (!isRunning) {
+            toPosition = Math.max(0, Math.min(toPosition, functionCommands.size() - 1));
+            fromPosition = Math.max(0, Math.min(fromPosition, functionCommands.size() - 1));
 
-        Command command = functionCommands.get(fromPosition);
-        functionCommands.remove(fromPosition);
-        functionCommands.add(toPosition, command);
+            Command command = functionCommands.get(fromPosition);
+            functionCommands.remove(fromPosition);
+            functionCommands.add(toPosition, command);
+        }
     }
 
     public int getCommandIndex(Command command) {

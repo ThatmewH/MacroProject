@@ -7,6 +7,7 @@ public class TemplateMatchingCommand extends Command {
 
     public TemplateMatchingCommand(CommandFunction function) {
         super(function);
+
     }
 
     @Override

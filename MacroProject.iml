@@ -26,5 +26,20 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.kwhat:jnativehook:2.2.1" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../JavaModules/opemcv-4.5.5/lib/opencv-455.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/../../JavaModules/opemcv-4.5.5/lib/x64" />
+        </NATIVE>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../JavaModules/opemcv-4.5.5/lib/opencv-455.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../JavaModules/opemcv-4.5.5/lib/opencv-455.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

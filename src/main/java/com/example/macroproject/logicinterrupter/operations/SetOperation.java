@@ -30,13 +30,13 @@ public class SetOperation extends LogicOperation {
     public Serializable eval() {
         try {
             if (Variable.getVariable(variables.get(0).name) == null) {
-                variables.get(0).name = variableName;
-                Variable.addNewVariable(variables.get(0));
+                throw new Exception("Variable Doesn't Exist");
             }
             variables.get(0).setValue(variables.get(1).getValue());
             return variables.get(0).getValue();
 
         } catch (Exception e) {
+            e.printStackTrace();
             return variables.get(0).getValue();
         }
     }

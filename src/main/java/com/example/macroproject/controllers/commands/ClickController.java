@@ -39,6 +39,7 @@ public class ClickController extends CommandController {
     @Override
     protected Command getInputs() {
         try {
+
             IntegerVariable inputCpsDelayVar = (IntegerVariable) Variable.checkVariableReference(inputCPSDelay.getText(), Integer.class, true);
             IntegerVariable inputClickAmountVar = (IntegerVariable) Variable.checkVariableReference(inputClickAmount.getText(), Integer.class, true);
             BooleanVariable inputCpsIsDisabledVar = (BooleanVariable) Variable.checkVariableReference(String.valueOf(inputCpsIsDisabled.isSelected()), Boolean.class, true);

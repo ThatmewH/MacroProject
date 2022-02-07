@@ -191,7 +191,7 @@ public class MainController extends FXMLController {
     protected void startMacro() {
         CommandFunction commandFunction = getSelectedCommandFunction();
         if (commandFunction != null) {
-            commandFunction.start();
+            commandFunction.start(true);
         }
     }
 
