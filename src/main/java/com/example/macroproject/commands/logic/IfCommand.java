@@ -15,9 +15,15 @@ public class IfCommand extends Command {
 
     public IfCommand(CommandFunction function, StringVariable inputCommand) {
         super(function);
+        //TODO: add null checks for all commands
         this.inputCommand = inputCommand;
         this.endIfCommand = new EndIfCommand(function);
         function.addCommand(endIfCommand);
+    }
+
+    @Override
+    public void runAfterInit() {
+        function.changeCommandPosition(function.getCommandIndex(this), function.getCommandIndex(endIfCommand));
     }
 
     @Override

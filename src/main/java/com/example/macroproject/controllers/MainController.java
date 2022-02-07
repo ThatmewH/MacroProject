@@ -158,6 +158,7 @@ public class MainController extends FXMLController {
 
     public void addCommand(Command command) {
         getSelectedCommandFunction().addCommand(command);
+        command.runAfterInit();
         refreshTabCommands(getSelectedTab());
     }
 
