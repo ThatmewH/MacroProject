@@ -82,7 +82,6 @@ public abstract class Variable <Value extends java.io.Serializable> {
 
             try {
                 if (input.contains(","))
-                    System.out.println("[es[".replaceFirst(String.valueOf("["), ""));
                 return new ArrayList<>(Arrays.asList(input.replace("[", "").replace("]", "").split(",")));
             } catch (Exception ignored) {}
         } else {
@@ -152,7 +151,7 @@ public abstract class Variable <Value extends java.io.Serializable> {
         }
 
         Serializable value = Variable.getInputValue(input);
-        if (value != null && (variableClass == value.getClass())) {
+        if (variableClass == value.getClass()) {
             return Variable.getVariableFromClass(value);
         } else if (variableClass == String.class) {
             // String is a special case because you can put any variable type in a string

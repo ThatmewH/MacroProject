@@ -5,6 +5,7 @@ import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.logicinterrupter.LogicInterrupter;
 import com.example.macroproject.variables.StringVariable;
+import com.example.macroproject.variables.Variable;
 
 import java.io.Serializable;
 
@@ -24,7 +25,10 @@ public class IfCommand extends Command {
         Serializable output = LogicInterrupter.evalString(inputCommand.getValue());
 
         if (output instanceof String) {
-            output = Boolean.valueOf((String) output);
+            Variable outputVariable = Variable.checkVariableReference((String) output, Boolean.class, true);
+            if (outputVariable != null) {
+                output = outputVariable.getValue();
+            }
         }
 
         if (!((Boolean) output)) {
