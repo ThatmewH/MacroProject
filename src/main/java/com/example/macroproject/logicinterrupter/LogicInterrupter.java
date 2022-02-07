@@ -105,6 +105,12 @@ public class LogicInterrupter {
         return command;
     }
 
+    /**
+     * Commands must be written from left to right, so something like 5 * 5 : 6 ? 6 * 6 == 36 will not work because it
+     will do the "5 * 5 : 6" command first which will work, then it should do the "6 * 6 == 36" to get a boolean,
+     however, that would be jumping to the right to run a command and ignoring the "?" command, which can't happen
+     so it takes the 6 as the supposed boolean and returns an error. Brackets must be used to run a command first
+     */
     public static Serializable evalString(String command) {
         command = evalStringBrackets(command);
         return runEvaluation(reverseString(command));
@@ -171,16 +177,5 @@ public class LogicInterrupter {
             }
         }
         return -1;
-    }
-
-    /**
-     * Commands must be written from left to right, so something like 5 * 5 : 6 ? 6 * 6 == 36 will not work because it
-       will do the "5 * 5 : 6" command first which will work, then it should do the "6 * 6 == 36" to get a boolean,
-       however, that would be jumping to the right to run a command and ignoring the "?" command, which can't happen
-       so it takes the 6 as the supposed boolean and returns an error. Brackets must be used to run a command first
-     * @param args
-     */
-    public static void main(String[] args) {
-        System.out.println(evalString(""));
     }
 }

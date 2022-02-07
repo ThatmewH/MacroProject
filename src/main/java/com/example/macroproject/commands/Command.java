@@ -3,6 +3,7 @@ package com.example.macroproject.commands;
 import com.example.macroproject.commands.click.ClickCommand;
 import com.example.macroproject.commands.listener.WaitForClick;
 import com.example.macroproject.commands.listener.WaitForKey;
+import com.example.macroproject.commands.logic.IfCommand;
 import com.example.macroproject.commands.time.WaitCommand;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public abstract class Command implements Serializable {
             add(WaitCommand.registerCommand());
             add(WaitForKey.registerCommand());
             add(WaitForClick.registerCommand());
+            add(IfCommand.registerCommand());
         }
     };
 

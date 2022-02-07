@@ -3,18 +3,14 @@ package com.example.macroproject.controllers;
 import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;
 import com.example.macroproject.commands.RegisteredCommand;
-import com.example.macroproject.commands.time.WaitCommand;
 import com.example.macroproject.controllers.commands.CommandController;
 import com.example.macroproject.javafxelements.DraggableCell;
-import com.example.macroproject.variables.IntegerVariable;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.*;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.util.ListIterator;
 
@@ -43,7 +39,7 @@ public class MainController extends FXMLController {
         });
     }
 
-    public int getCommandIndex() {
+    public int getSelectedCommandIndex() {
         Command command = getSelectedListView().getSelectionModel().getSelectedItem();
         return getSelectedCommandFunction().getCommandIndex(command);
     }
@@ -175,6 +171,8 @@ public class MainController extends FXMLController {
         if (getSelectedListView().getItems().size() == 0) {
             disableRemoveCommandButton();
         }
+
+        refreshTabCommands(getSelectedTab());
     }
 
     @FXML

@@ -8,6 +8,7 @@ import com.example.macroproject.variables.Variable;
 
 import javax.print.attribute.SetOfIntegerSyntax;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CommandFunction {
@@ -51,6 +52,16 @@ public class CommandFunction {
     public void removeCommand(int index) {
         functionCommands.get(index).cleanSelfToBeRemoved();
         functionCommands.remove(index);
+    }
+
+    public void removeCommand(Command removeCommand) {
+        for (Iterator iterator = functionCommands.iterator(); iterator.hasNext();) {
+            Command command = (Command) iterator.next();
+            if (command == removeCommand) {
+                command.cleanSelfToBeRemoved();
+                iterator.remove();
+            }
+        }
     }
 
     private void run() {
@@ -129,6 +140,10 @@ public class CommandFunction {
             }
         }
         return -1;
+    }
+
+    public void setCommandIndex(int newIndex) {
+        commandIndex.setValue(newIndex);
     }
 
     public static void addFunction(CommandFunction function) {
