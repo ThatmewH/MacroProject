@@ -6,6 +6,7 @@ import com.example.macroproject.commands.RegisteredCommand;
 import com.example.macroproject.variables.BooleanVariable;
 import com.example.macroproject.variables.DoubleVariable;
 import com.example.macroproject.variables.ImageVariable;
+import com.example.macroproject.variables.IntegerVariable;
 
 public class TemplateMatchingCommand extends Command {
     protected BooleanVariable showImage;
@@ -14,14 +15,14 @@ public class TemplateMatchingCommand extends Command {
     protected DoubleVariable threshhold;
 
     protected BooleanVariable outputImageWasFound;
-    protected DoubleVariable outputX1;
-    protected DoubleVariable outputY1;
-    protected DoubleVariable outputX2;
-    protected DoubleVariable outputY2;
+    protected IntegerVariable outputX1;
+    protected IntegerVariable outputY1;
+    protected IntegerVariable outputX2;
+    protected IntegerVariable outputY2;
 
     public TemplateMatchingCommand(CommandFunction function, BooleanVariable showImage, ImageVariable background
             , ImageVariable template, DoubleVariable threshhold, BooleanVariable outputImageWasFound
-            , DoubleVariable outputX1, DoubleVariable outputY1, DoubleVariable outputX2, DoubleVariable outputY2) {
+            , IntegerVariable outputX1, IntegerVariable outputY1, IntegerVariable outputX2, IntegerVariable outputY2) {
         super(function);
 
         if (showImage == null || background == null || template == null || threshhold == null || outputImageWasFound == null
@@ -48,10 +49,10 @@ public class TemplateMatchingCommand extends Command {
 
         if (position != null) {
             outputImageWasFound.setValue(true);
-            outputX1.setValue(position[0]);
-            outputY1.setValue(position[1]);
-            outputX2.setValue(position[2]);
-            outputY2.setValue(position[3]);
+            outputX1.setValue((int) position[0]);
+            outputY1.setValue((int) position[1]);
+            outputX2.setValue((int) position[2]);
+            outputY2.setValue((int) position[3]);
         } else {
             outputImageWasFound.setValue(false);
         }

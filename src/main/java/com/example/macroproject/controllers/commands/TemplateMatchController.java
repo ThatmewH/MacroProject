@@ -54,17 +54,17 @@ public class TemplateMatchController extends CommandController {
                     ? new BooleanVariable("", false)
                     : (BooleanVariable) Variable.getVariable(outputFoundImage.getText());
 
-            DoubleVariable posX = outputPosX.getText().equals("") ? new DoubleVariable("", -1.0)
-                    : (DoubleVariable) Variable.getVariable(outputPosX.getText());
+            IntegerVariable posX = outputPosX.getText().equals("") ? new IntegerVariable("", -1)
+                    : (IntegerVariable) Variable.getVariable(outputPosX.getText());
 
-            DoubleVariable posY = outputPosY.getText().equals("") ? new DoubleVariable("", -1.0)
-                    : (DoubleVariable) Variable.getVariable(outputPosY.getText());
+            IntegerVariable posY = outputPosY.getText().equals("") ? new IntegerVariable("", -1)
+                    : (IntegerVariable) Variable.getVariable(outputPosY.getText());
 
-            DoubleVariable width = outputWidth.getText().equals("") ? new DoubleVariable("", -1.0)
-                    : (DoubleVariable) Variable.getVariable(outputWidth.getText());
+            IntegerVariable width = outputWidth.getText().equals("") ? new IntegerVariable("", -1)
+                    : (IntegerVariable) Variable.getVariable(outputWidth.getText());
 
-            DoubleVariable height = outputHeight.getText().equals("") ? new DoubleVariable("", -1.0)
-                    : (DoubleVariable) Variable.getVariable(outputHeight.getText());
+            IntegerVariable height = outputHeight.getText().equals("") ? new IntegerVariable("", -1)
+                    : (IntegerVariable) Variable.getVariable(outputHeight.getText());
 
             try {
                 return new TemplateMatchingCommand(currentCommandFunction, showImage, backgroundImage, templateImage
