@@ -27,7 +27,7 @@ public class SetOperation extends LogicOperation {
     }
 
     @Override
-    public Serializable eval() {
+    public Object eval() {
         try {
             if (Variable.getVariable(variables.get(0).name) == null) {
                 throw new Exception("Variable Doesn't Exist");

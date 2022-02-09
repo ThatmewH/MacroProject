@@ -1,10 +1,13 @@
 package com.example.macroproject;
 
 import com.example.macroproject.commands.CommandFunction;
+import com.example.macroproject.variables.ImageVariable;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.opencv.highgui.HighGui;
+import org.opencv.highgui.ImageWindow;
 
 import java.io.IOException;
 
@@ -26,6 +29,7 @@ public class StartApplication extends Application {
 
     @Override
     public void stop(){
-        // Save file
+        HighGui.destroyAllWindows();
+        HighGui.waitKey();
     }
 }

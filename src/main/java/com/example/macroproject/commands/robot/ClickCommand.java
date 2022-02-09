@@ -1,4 +1,4 @@
-package com.example.macroproject.commands.click;
+package com.example.macroproject.commands.robot;
 
 import com.example.macroproject.commands.Command;
 import com.example.macroproject.commands.CommandFunction;

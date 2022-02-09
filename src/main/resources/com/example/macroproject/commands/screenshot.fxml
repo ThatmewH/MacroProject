@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.macroproject.controllers.commands.ScreenshotController">
+   <children>
+      <HBox>
+         <children>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Screenshot" />
+            <Pane HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <Separator />
+      <HBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pos X: ">
+               <HBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="inputPosX" prefWidth="50.0" promptText="DoubleVariable" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pos Y: ">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="inputPosY" prefWidth="50.0" promptText="DoubleVariable" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Width: ">
+               <HBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="inputWidth" prefWidth="50.0" promptText="DoubleVariable" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height: ">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="inputHeight" prefWidth="50.0" promptText="DoubleVariable" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Output Image: ">
+               <HBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="inputOutputImage" prefWidth="50.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="53.0" prefWidth="330.0">
+         <children>
+            <Button fx:id="selectButton" mnemonicParsing="false" onAction="#submitForm" text="Add">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#closeWindow" text="Cancel">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

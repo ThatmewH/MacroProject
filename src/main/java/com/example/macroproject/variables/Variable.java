@@ -1,19 +1,23 @@
 package com.example.macroproject.variables;
 
+import com.example.macroproject.commands.opencv.OpenCVHelper;
+import org.opencv.core.Mat;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public abstract class Variable <Value extends java.io.Serializable> {
+public abstract class Variable <Value extends Object> {
 
     public static ArrayList<Class> classesWithVariables = new ArrayList<>() {
         {
             add(Integer.class);
-            add(Float.class);
+            add(Double.class);
             add(Boolean.class);
             add(String.class);
             add(ArrayList.class);
+            add(Mat.class);
         }
     };
 
@@ -68,18 +72,21 @@ public abstract class Variable <Value extends java.io.Serializable> {
         return null;
     }
 
-    public static Serializable getInputValue(String input) {
+    public static Object getInputValue(String input) {
         input = input.toLowerCase(Locale.ROOT);
 
         if (input.contains(".")) {
             try {
-                return Float.valueOf(input);
+                return OpenCVHelper.openImage(input);
             } catch (Exception ignored) {}
-
+            //TODO: Will always choose double over float, need to find a way to choose the suitable class, or just
+            //      always use double
             try {
                 return Double.valueOf(input);
             } catch (Exception ignored) {}
-
+            try {
+                return Float.valueOf(input);
+            } catch (Exception ignored) {}
             try {
                 if (input.contains(","))
                 return new ArrayList<>(Arrays.asList(input.replace("[", "").replace("]", "").split(",")));
@@ -108,17 +115,21 @@ public abstract class Variable <Value extends java.io.Serializable> {
         return input;
     }
 
-    public static Variable getVariableFromClass(Serializable value) {
+    public static Variable getVariableFromClass(Object value) {
         if (value.getClass() == Integer.class) {
             return new IntegerVariable("", (Integer) value);
         } else if (value.getClass() == Boolean.class) {
             return new BooleanVariable("", (Boolean) value);
         } else if (value.getClass() == Float.class) {
             return new FloatVariable("", (Float) value);
+        } else if (value.getClass() == Double.class) {
+            return new DoubleVariable("", (Double) value);
         } else if (value.getClass() == String.class) {
             return new StringVariable("", (String) value);
         } else if (value.getClass() == ArrayList.class) {
             return new ListVariable("", (ArrayList) value);
+        } else if (value.getClass() == Mat.class) {
+            return new ImageVariable("", (Mat) value);
         }
         return null;
     }
@@ -150,7 +161,7 @@ public abstract class Variable <Value extends java.io.Serializable> {
             }
         }
 
-        Serializable value = Variable.getInputValue(input);
+        Object value = Variable.getInputValue(input);
         if (variableClass == value.getClass()) {
             return Variable.getVariableFromClass(value);
         } else if (variableClass == String.class) {

@@ -28,7 +28,7 @@ public class IfCommand extends Command {
 
     @Override
     public void run() {
-        Serializable output = LogicInterrupter.evalString(inputCommand.getValue());
+        Object output = LogicInterrupter.evalString(inputCommand.getValue());
 
         if (output instanceof String) {
             Variable outputVariable = Variable.checkVariableReference((String) output, Boolean.class, true);

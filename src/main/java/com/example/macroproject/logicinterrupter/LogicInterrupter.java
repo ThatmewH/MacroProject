@@ -45,7 +45,7 @@ public class LogicInterrupter {
         return sb.toString();
     }
 
-    public static Serializable runEvaluation(String command) {
+    public static Object runEvaluation(String command) {
         String seperatorSymbol = "}";
 
         for (String operationSymbol : RegisteredLogicOperation.operationSymbols) {
@@ -110,7 +110,7 @@ public class LogicInterrupter {
      however, that would be jumping to the right to run a command and ignoring the "?" command, which can't happen
      so it takes the 6 as the supposed boolean and returns an error. Brackets must be used to run a command first
      */
-    public static Serializable evalString(String command) {
+    public static Object evalString(String command) {
         command = command.replace(" ", "");
         command = evalStringBrackets(command);
         return runEvaluation(reverseString(command));

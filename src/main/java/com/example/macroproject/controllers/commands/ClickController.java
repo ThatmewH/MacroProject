@@ -1,8 +1,7 @@
 package com.example.macroproject.controllers.commands;
 
 import com.example.macroproject.commands.Command;
-import com.example.macroproject.commands.CommandFunction;
-import com.example.macroproject.commands.click.ClickCommand;
+import com.example.macroproject.commands.robot.ClickCommand;
 import com.example.macroproject.variables.BooleanVariable;
 import com.example.macroproject.variables.IntegerVariable;
 import com.example.macroproject.variables.Variable;
@@ -10,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.controlsfx.control.ToggleSwitch;
-
-import java.util.ArrayList;
 
 public class ClickController extends CommandController {
 
@@ -64,7 +61,6 @@ public class ClickController extends CommandController {
         }
 
     }
-
 
     @FXML
     protected void toggleDelayType() {

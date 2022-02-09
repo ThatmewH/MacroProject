@@ -1,12 +1,15 @@
 package com.example.macroproject.commands;
 
-import com.example.macroproject.commands.click.ClickCommand;
+import com.example.macroproject.commands.opencv.SaveImageCommand;
+import com.example.macroproject.commands.opencv.TemplateMatchingCommand;
+import com.example.macroproject.commands.robot.ClickCommand;
 import com.example.macroproject.commands.listener.WaitForClick;
 import com.example.macroproject.commands.listener.WaitForKey;
 import com.example.macroproject.commands.logic.IfCommand;
 import com.example.macroproject.commands.logic.JumpCommand;
 import com.example.macroproject.commands.logic.LogicCommand;
 import com.example.macroproject.commands.logic.RunFunctionCommand;
+import com.example.macroproject.commands.robot.ScreenshotCommand;
 import com.example.macroproject.commands.time.WaitCommand;
 
 import java.io.Serializable;
@@ -31,6 +34,9 @@ public abstract class Command implements Serializable {
             add(LogicCommand.registerCommand());
             add(JumpCommand.registerCommand());
             add(RunFunctionCommand.registerCommand());
+            add(SaveImageCommand.registerCommand());
+            add(TemplateMatchingCommand.registerCommand());
+            add(ScreenshotCommand.registerCommand());
         }
     };
 

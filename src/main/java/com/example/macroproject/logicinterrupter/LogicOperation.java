@@ -31,5 +31,5 @@ public abstract class LogicOperation {
         }
     }
 
-    public abstract Serializable eval();
+    public abstract Object eval();
 }
