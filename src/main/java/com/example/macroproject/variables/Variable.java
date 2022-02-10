@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public abstract class Variable <Value extends Object> {
+public abstract class Variable <Value> {
 
     public static ArrayList<Class> classesWithVariables = new ArrayList<>() {
         {
@@ -25,10 +25,12 @@ public abstract class Variable <Value extends Object> {
 
     public String name;
     public Value value;
+    public Class variableClass;
 
-    public Variable(String name, Value value) {
+    public Variable(String name, Value value, Class<Value> variableClass) {
         this.name = name;
         this.value = value;
+        this.variableClass = variableClass;
     }
 
     public void setToVariable(Variable newVariable) {
@@ -45,7 +47,7 @@ public abstract class Variable <Value extends Object> {
     }
 
     public Class getValueType() {
-        return this.value.getClass();
+        return this.variableClass;
     }
 
     @Override
@@ -115,20 +117,20 @@ public abstract class Variable <Value extends Object> {
         return input;
     }
 
-    public static Variable getVariableFromClass(Object value) {
-        if (value.getClass() == Integer.class) {
+    public static Variable getVariableFromObject(Object value, Class valueClass) {
+        if (valueClass == Integer.class) {
             return new IntegerVariable("", (Integer) value);
-        } else if (value.getClass() == Boolean.class) {
+        } else if (valueClass == Boolean.class) {
             return new BooleanVariable("", (Boolean) value);
-        } else if (value.getClass() == Float.class) {
+        } else if (valueClass == Float.class) {
             return new FloatVariable("", (Float) value);
-        } else if (value.getClass() == Double.class) {
+        } else if (valueClass == Double.class) {
             return new DoubleVariable("", (Double) value);
-        } else if (value.getClass() == String.class) {
+        } else if (valueClass == String.class) {
             return new StringVariable("", (String) value);
-        } else if (value.getClass() == ArrayList.class) {
+        } else if (valueClass == ArrayList.class) {
             return new ListVariable("", (ArrayList) value);
-        } else if (value.getClass() == Mat.class) {
+        } else if (valueClass == Mat.class) {
             return new ImageVariable("", (Mat) value);
         }
         return null;
@@ -152,6 +154,8 @@ public abstract class Variable <Value extends Object> {
     public static Variable checkVariableReference(String input, Class variableClass, boolean checkExistingVariables) {
         if (input.equals("")) {
             return null;
+        } else if (input.equals("null")) {
+            return Variable.getVariableFromObject(null, variableClass);
         }
 
         if (checkExistingVariables) {
@@ -163,7 +167,7 @@ public abstract class Variable <Value extends Object> {
 
         Object value = Variable.getInputValue(input);
         if (variableClass == value.getClass()) {
-            return Variable.getVariableFromClass(value);
+            return Variable.getVariableFromObject(value, value.getClass());
         } else if (variableClass == String.class) {
             // String is a special case because you can put any variable type in a string
             return new StringVariable("", input);

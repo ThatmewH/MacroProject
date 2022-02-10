@@ -80,6 +80,7 @@ public class OpenCVHelper {
         }
 
         if (showImage) {
+
             HighGui.imshow("Template Match", background);
             HighGui.waitKey(1);
         }

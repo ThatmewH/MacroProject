@@ -6,7 +6,7 @@ public class ListVariable extends Variable<ArrayList> {
     //TODO make a superclass called NumberVariable with all the add, sub, mul and divide
     // with a generic extending number
     public ListVariable(String name, ArrayList arrayList) {
-        super(name, arrayList);
+        super(name, arrayList, ArrayList.class);
     }
 
 }

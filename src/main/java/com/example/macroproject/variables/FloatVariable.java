@@ -4,7 +4,7 @@ public class FloatVariable extends Variable<Float> {
     //TODO make a superclass called NumberVariable with all the add, sub, mul and divide
     // with a generic extending number
     public FloatVariable(String name, Float _float) {
-        super(name, _float);
+        super(name, _float, Float.class);
     }
 
     public void addValue(float addValue) {

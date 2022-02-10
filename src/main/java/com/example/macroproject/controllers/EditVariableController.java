@@ -31,7 +31,7 @@ public class EditVariableController extends FXMLController {
     void initData(Variable variable) {
         comboBox.getSelectionModel().select(variable.getValueType());
         nameTextField.appendText(variable.name);
-        valueTextField.appendText(variable.getValue().toString());
+        valueTextField.appendText(String.valueOf(variable.getValue()));
         this.editedVariable = variable;
 
         isEditing = true;
