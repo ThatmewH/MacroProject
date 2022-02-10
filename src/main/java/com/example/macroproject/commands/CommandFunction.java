@@ -71,12 +71,12 @@ public class CommandFunction {
     }
 
     private void run() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         isRunning = true;
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         while (commandIndex.getValue() < functionCommands.size() && isRunning) {
             functionCommands.get(commandIndex.getValue()).start();
